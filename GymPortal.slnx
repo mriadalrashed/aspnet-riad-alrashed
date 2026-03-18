@@ -1,1 +1,3 @@
-<Solution />
+<Solution>
+  <Project Path="GymPortal.Domain/GymPortal.Domain.csproj" />
+</Solution>
