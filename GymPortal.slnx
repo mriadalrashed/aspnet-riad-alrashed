@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="GymPortal.Application/GymPortal.Application.csproj" Id="d809ebc7-299e-4d1c-b167-be1dad9a232f" />
+  <Project Path="GymPortal.Domain/GymPortal.Domain.csproj" />
+</Solution>
