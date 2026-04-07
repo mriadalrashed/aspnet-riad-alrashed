@@ -86,7 +86,7 @@ namespace GymPortal.Application.Services
                 EndTime = s.EndTime,
                 Location = s.Location,
                 MaxParticipants = s.MaxParticipants,
-                AvailableSpots = s.MaxParticipants - s.Bookings.count(b => b.Status == BookingStatus.Confirmed),
+                AvailableSpots = s.MaxParticipants - s.Bookings.Count(b => b.Status == BookingStatus.Confirmed),
                 IsActive = s.IsActive
             });
         }
