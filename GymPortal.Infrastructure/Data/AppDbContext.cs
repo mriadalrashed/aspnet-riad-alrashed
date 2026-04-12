@@ -25,7 +25,7 @@ namespace GymPortal.Infrastructure.Data
                     .HasFilter("Status = 0");
 
             builder.Entity<Membership>()
-                   .HasOne(m => m.UserId)
+                   .HasOne(m => m.User)
                    .WithOne(m => m.Membership)
                    .HasForeignKey(m => m.UserId)
                    .OnDelete(DeleteBehavior.Cascade);    
