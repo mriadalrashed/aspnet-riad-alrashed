@@ -2,7 +2,7 @@
 
 namespace GymPortal.Web.ViewModels
 {
-    public class ForgetPasswordViewModel
+    public class ForgotPasswordViewModel
     {
         [Required]
         [EmailAddress]
