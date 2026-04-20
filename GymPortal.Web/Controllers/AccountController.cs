@@ -17,7 +17,7 @@ namespace GymPortal.Web.Controllers
         private readonly IMembershipService _membershipService;
         private readonly IBookingService _bookingService;
 
-        public AccountController(1
+        public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IUserService userService,
