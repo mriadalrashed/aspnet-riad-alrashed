@@ -18,7 +18,24 @@ packages/
 *.snupkg
 
 # ASP.NET Core
-wwwroot/
+# NEVER commit user uploaded content
+wwwroot/uploads/
+wwwroot/user-content/
+wwwroot/temp/
+
+# NEVER commit sensitive files
+wwwroot/config/secrets.json
+wwwroot/*.key
+wwwroot/*.pem
+
+# Optional: Large assets (consider using CDN or Git LFS)
+*.psd
+*.ai
+*.mp4
+*.zip
+
+# Development-only files
+wwwroot/dev-assets/
 appsettings.*.json
 *.db
 
