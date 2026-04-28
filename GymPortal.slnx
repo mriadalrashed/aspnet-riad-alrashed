@@ -1,2 +1,7 @@
 <Solution>
+<Project Path="GymPortal.Domain/GymPortal.Domain.csproj" />
+<Project Path="GymPortal.Application/GymPortal.Application.csproj" Id="d809ebc7-299e-4d1c-b167-be1dad9a232f" />
+<Project Path="GymPortal.Infrastructure/GymPortal.Infrastructure.csproj" Id="4845ca6f-6a91-47ed-a007-9504beb0df55" />
+<Project Path="GymPortal.Web/GymPortal.Web.csproj" Id="f847f6cd-78a8-43dd-95fd-794836af133f" />
+<Project Path="GymPortal.Tests/GymPortal.Tests.csproj" Id="15fec678-8e9b-424f-b7c6-d712d63b5de2" />
 </Solution>
