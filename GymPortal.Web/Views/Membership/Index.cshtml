@@ -1,0 +1,275 @@
+﻿@model GymPortal.Web.ViewModels.MembershipViewModel
+@{
+    ViewData["Title"] = "Memberships";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var isAuth = User.Identity?.IsAuthenticated ?? false;
+}
+
+<div class="memberships-page">
+
+    <div class="memberships-header">
+        <h1 class="memberships-title">Our Membership Offers</h1>
+    </div>
+
+    @if (isAuth && Model.CurrentUserPlan != null)
+    {
+        <div class="info-banner">
+            You're on the <strong>@Model.CurrentUserPlan.Name</strong> plan.
+            <form method="post" asp-controller="Membership" asp-action="Cancel" style="display:inline">
+                @Html.AntiForgeryToken()
+                <button type="submit" class="memberships-button"
+                        style="background:transparent;border:1px solid #D6EB31;font-size:13px;padding:8px 16px;margin-left:16px"
+                        onclick="return confirm('Are you sure you want to cancel your membership?')">
+                    Cancel membership
+                </button>
+            </form>
+        </div>
+    }
+
+    <!-- ═══ Plan Cards + CTA ═══ -->
+    <div class="memberships-cards-row">
+        @if (Model.Plans != null)
+        {
+            @foreach (var plan in Model.Plans)
+            {
+                var isCurrent = Model.CurrentUserPlan?.Id == plan.Id;
+                <div class="memberships-card">
+                    @if (plan.IsPopular)
+                    {
+                        <div class="memberships-popular-badge">Most Popular</div>
+                    }
+                    @if (isCurrent)
+                    {
+                        <div class="memberships-current-badge">Your Plan</div>
+                    }
+
+                    <!-- Figma: icon Ellipse #D6EB31 50×50 -->
+                    <div class="memberships-card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z" />
+                            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                        </svg>
+                    </div>
+
+                    <!-- Figma: Poppins 600 18px plan name -->
+                    <h2 class="memberships-plan-name">@plan.Name</h2>
+                    <hr class="memberships-plan-divider" />
+
+                    <!-- Figma: DM Sans 400 16px #6F6F6F description -->
+                    <p class="memberships-plan-desc">@plan.Description</p>
+
+                    <!-- Figma: feature list with check dots -->
+                    <ul class="memberships-features">
+                        @if (plan.Features != null)
+                        {
+                            @foreach (var feature in plan.Features)
+                            {
+                                <li class="memberships-feature">
+                                    <span class="memberships-feature-check">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                            <polyline points="20 6 9 17 4 12" />
+                                        </svg>
+                                    </span>
+                                    <span class="memberships-feature-text">@feature</span>
+                                </li>
+                            }
+                        }
+                    </ul>
+
+                    <!-- Figma: dark box #080517, border-radius 20px -->
+                    <div class="memberships-card-dark">
+                        <!-- Figma: Poppins 700 24px white price -->
+                        <p class="memberships-price">@((int)plan.Price).00 /monthly</p>
+                        <!-- Figma: DM Sans 500 16px white -->
+                        <p class="memberships-price-note">* Monthly @(plan.DurationMonths * 20) Classes</p>
+                        <hr class="memberships-dark-divider" />
+
+                        <div class="memberships-dark-row">
+                            <!-- Figma: DM Sans 400 16px white trial note -->
+                            <span class="memberships-trial-note">Try Any Membership Free for 1 Week</span>
+
+                            @if (!isAuth)
+                            {
+                                <a href="/Account/SignUp" class="memberships-join-btn">
+                                    Join Now
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                        <path d="M5 12h14M12 5l7 7-7 7" />
+                                    </svg>
+                                </a>
+                            }
+                            else if (isCurrent)
+                            {
+                                <span class="memberships-join-btn" style="opacity:.5;cursor:default">Current Plan</span>
+                            }
+                            else
+                            {
+                                <form method="post" asp-controller="Membership" asp-action="Subscribe" asp-route-planId="@plan.Id" style="display:contents">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="memberships-join-btn">
+                                        @(Model.CurrentUserPlan == null ? "Join Now" : "Switch")
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                            <path d="M5 12h14M12 5l7 7-7 7" />
+                                        </svg>
+                                    </button>
+                                </form>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+
+        <!-- Figma: CTA card — #080517 dark, pricing-cta.png image bottom-right -->
+        <div class="memberships-cta-card">
+            <img src="/images/pricing-cta.png" alt="" class="memberships-cta-card-image" aria-hidden="true" />
+            <p class="memberships-cta-title">Get Your Membership</p>
+            <p class="memberships-cta-desc">Our memberships give you access to all equipment, personalized training.</p>
+            <hr class="memberships-cta-divider" />
+            <p class="memberships-cta-phone">Call Us At: +(46) 8 410 521 00</p>
+            <a href="tel:+46841052100" class="memberships-call-btn">
+                Call Us Today!
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+            </a>
+        </div>
+    </div>
+
+    <!-- Figma: trust badges row -->
+    <div class="memberships-trust">
+        <div class="memberships-trust-item">
+            <svg class="memberships-trust-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D6EB31" stroke-width="2">
+                <polyline points="20 6 9 17 4 12" />
+            </svg>
+            Get 30 day free trial
+        </div>
+        <div class="memberships-trust-item">
+            <svg class="memberships-trust-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D6EB31" stroke-width="2">
+                <polyline points="20 6 9 17 4 12" />
+            </svg>
+            No any hidden fees pay
+        </div>
+        <div class="memberships-trust-item">
+            <svg class="memberships-trust-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D6EB31" stroke-width="2">
+                <polyline points="20 6 9 17 4 12" />
+            </svg>
+            You can cancel anytime
+        </div>
+    </div>
+
+    <!-- Figma: FAQ — image left 630×748, accordion right -->
+    <div class="memberships-faq-section">
+        <img src="/images/faq-gym.png" alt="FAQ" class="memberships-faq-image" loading="lazy" />
+
+        <div class="memberships-faq-content">
+            <div class="memberships-faq-badge">
+                <span class="memberships-faq-badge-dot"></span>
+                <span class="memberships-faq-badge-text">Frequently Asked Questions</span>
+            </div>
+            <h2 class="memberships-faq-title">Common questions about<br />gym and training</h2>
+
+            <div>
+                <div class="faq-item open">
+                    <button class="faq-question" onclick="toggleFaq(this)" type="button">
+                        <span class="faq-question-text">Q1. Do I need prior gym experience to Join CoreFitness?</span>
+                        <span class="faq-chevron">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <polyline points="6 9 12 15 18 9" />
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="faq-answer">
+                        <p class="faq-answer-text">No, GymPro is designed for all fitness levels. Our trainers guide beginners with proper techniques and structured workout plans to help them start safely and confidently.</p>
+                        <ul class="faq-answer-list">
+                            <li class="faq-answer-list-item">
+                                <span class="faq-answer-dot"></span>
+                                <span class="faq-answer-list-text">Every new member receives a personalized introduction to equipments</span>
+                            </li>
+                            <li class="faq-answer-list-item">
+                                <span class="faq-answer-dot"></span>
+                                <span class="faq-answer-list-text">Workouts are designed to grow with you, ensuring beginners can start safely.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)" type="button">
+                        <span class="faq-question-text">Q2. What facilities are included with the membership?</span>
+                        <span class="faq-chevron">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <polyline points="6 9 12 15 18 9" />
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="faq-answer">
+                        <p class="faq-answer-text">All memberships include access to our full gym floor, group classes, locker rooms, and showers. Premium plans include sauna, recovery zones, and personal training sessions.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)" type="button">
+                        <span class="faq-question-text">Q3. Can I try the gym before taking a membership?</span>
+                        <span class="faq-chevron">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <polyline points="6 9 12 15 18 9" />
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="faq-answer">
+                        <p class="faq-answer-text">Yes! Every new membership comes with a 1-week free trial so you can experience the gym before committing.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)" type="button">
+                        <span class="faq-question-text">Q4. Are there group workout programs available?</span>
+                        <span class="faq-chevron">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <polyline points="6 9 12 15 18 9" />
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="faq-answer">
+                        <p class="faq-answer-text">Absolutely. We offer 120+ weekly group classes including HIIT, Yoga, Spin, Boxing, and more.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)" type="button">
+                        <span class="faq-question-text">Q5. Is nutrition guidance included in the plans?</span>
+                        <span class="faq-chevron">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <polyline points="6 9 12 15 18 9" />
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="faq-answer">
+                        <p class="faq-answer-text">Premium and Elite plans include monthly nutrition consultations. Standard plans have access to our online nutrition resources.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    <script>
+        function toggleFaq(btn) {
+            var item = btn.parentElement;
+            var isOpen = item.classList.contains('open');
+            document.querySelectorAll('.faq-item').forEach(function(i) {
+                i.classList.remove('open');
+            });
+            if (!isOpen) {
+                item.classList.add('open');
+            }
+        }
+
+        // Auto-dismiss alerts after 5 seconds
+        setTimeout(function() {
+            document.querySelectorAll('.alert').forEach(function(el) {
+                el.style.opacity = '0';
+                el.style.transition = 'opacity 0.5s';
+                setTimeout(function() { el.remove(); }, 500);
+            });
+        }, 5000);
+    </script>
+}

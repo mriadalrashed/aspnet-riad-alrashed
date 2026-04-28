@@ -1,0 +1,188 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+    var isAuth = User.Identity?.IsAuthenticated ?? false;
+    var isAdmin = User.IsInRole("Admin");
+    var isMember = User.IsInRole("Member");
+    var path = Context.Request.Path.Value ?? "";
+}
+
+<header class="navbar-header" role="banner">
+    <div class="navbar-container">
+        <div class="navbar-bg-image">
+            <img src="/images/dark-bg.png" alt="" class="navbar-bg-img" aria-hidden="true" />
+        </div>
+
+        <div class="navbar-content">
+            <a href="/" class="navbar-logo" aria-label="CoreFitness Home">
+                <img src="/images/logo.png" alt="CoreFitness" />
+            </a>
+
+            <button class="navbar-mobile-toggle" aria-expanded="false" aria-controls="nav-mobile-menu" aria-label="Toggle navigation" id="navToggle">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <line x1="3" y1="6" x2="21" y2="6" />
+                    <line x1="3" y1="12" x2="21" y2="12" />
+                    <line x1="3" y1="18" x2="21" y2="18" />
+                </svg>
+            </button>
+
+            <nav class="navbar-nav-desktop" role="navigation" aria-label="Main navigation">
+                <a href="/" class="navbar-link @(path == "/" ? "active" : "")">Fitness Centers</a>
+                <a href="/Membership" class="navbar-link @(path.StartsWith("/Membership") ? "active" : "")">Memberships</a>
+
+                <!-- Training Dropdown (visible to all authenticated users) -->
+                @if (isAuth)
+                {
+                    <div class="navbar-dropdown-container">
+                        <button class="navbar-link navbar-dropdown-toggle" type="button" aria-expanded="false" id="trainingToggle">
+                            Training
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9" /></svg>
+                        </button>
+                        <div class="navbar-dropdown-menu navbar-dropdown-training" id="trainingMenu" role="menu">
+                            <a href="/Classes?type=personal" class="navbar-dropdown-item" role="menuitem">Personal Training</a>
+                            <a href="/Classes?type=group" class="navbar-dropdown-item" role="menuitem">Group Training</a>
+                            <a href="/Classes?type=padel" class="navbar-dropdown-item" role="menuitem">Padel</a>
+                        </div>
+                    </div>
+                }
+
+                <a href="/CustomerService" class="navbar-link @(path.StartsWith("/CustomerService") ? "active" : "")">Customer Service</a>
+                <a href="/Store" class="navbar-link">Store</a>
+
+                <!-- Admin link - only visible to Admin role -->
+                @if (isAdmin)
+                {
+                    <a href="/Admin" class="navbar-link @(path.StartsWith("/Admin") ? "active" : "")">Admin</a>
+                }
+            </nav>
+
+            <div class="navbar-auth-desktop">
+                @if (isAuth)
+                {
+                    <div class="navbar-dropdown-container" id="accountDropdownContainer">
+                        <button class="navbar-link-plain" type="button" id="accountToggle">
+                            My Account
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9" /></svg>
+                        </button>
+                        <div class="navbar-dropdown-menu navbar-dropdown-account" id="accountMenu">
+                            <a href="/Account/MyAccount" class="navbar-dropdown-item">My Account</a>
+                            <a href="/Account/MyMembership" class="navbar-dropdown-item">My Membership</a>
+                            <a href="/Account/MyBookings" class="navbar-dropdown-item">My Bookings</a>
+                            <form method="post" action="/Account/SignOut" style="display:contents">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="navbar-dropdown-item navbar-dropdown-signout">Sign Out</button>
+                            </form>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <a href="/Account/SignUp" class="navbar-link-plain">Become Member</a>
+                    <a href="/Account/SignIn" class="navbar-btn-primary">
+                        Sign In
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                    </a>
+                }
+            </div>
+        </div>
+
+        <nav id="nav-mobile-menu" class="navbar-mobile-menu" role="navigation" aria-label="Mobile navigation">
+            <a href="/" class="navbar-mobile-link @(path == "/" ? "active" : "")">Fitness Centers</a>
+            <a href="/Membership" class="navbar-mobile-link @(path.StartsWith("/Membership") ? "active" : "")">Memberships</a>
+
+            @if (isAuth)
+            {
+                <a href="/Classes" class="navbar-mobile-link @(path.StartsWith("/Classes") ? "active" : "")">Training</a>
+            }
+
+            <a href="/CustomerService" class="navbar-mobile-link @(path.StartsWith("/CustomerService") ? "active" : "")">Customer Service</a>
+            <a href="/Store" class="navbar-mobile-link">Store</a>
+
+            @if (isAdmin)
+            {
+                <a href="/Admin" class="navbar-mobile-link @(path.StartsWith("/Admin") ? "active" : "")">Admin</a>
+            }
+
+            <div class="navbar-mobile-auth">
+                @if (isAuth)
+                {
+                    <a href="/Account/MyAccount" class="navbar-mobile-link">My Account</a>
+                    <a href="/Account/MyMembership" class="navbar-mobile-link">My Membership</a>
+                    <a href="/Account/MyBookings" class="navbar-mobile-link">My Bookings</a>
+                    <form method="post" action="/Account/SignOut">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="navbar-mobile-link" style="color:#D6EB31;background:none;border:none;cursor:pointer;font-family:inherit;font-weight:600;font-size:16px;padding:0;text-align:left">Sign Out</button>
+                    </form>
+                }
+                else
+                {
+                    <a href="/Account/SignUp" class="navbar-mobile-link">Become Member</a>
+                    <a href="/Account/SignIn" class="navbar-btn-primary" style="width:fit-content">Sign In</a>
+                }
+            </div>
+        </nav>
+    </div>
+</header>
+
+<script>
+    (function(){
+        // Mobile toggle
+        var t = document.getElementById('navToggle');
+        var m = document.getElementById('nav-mobile-menu');
+        if (t && m) {
+            t.addEventListener('click', function() {
+                var o = m.classList.toggle('open');
+                t.setAttribute('aria-expanded', o ? 'true' : 'false');
+            });
+        }
+
+        // Training dropdown click toggle
+        var btn = document.getElementById('trainingToggle');
+        var menu = document.getElementById('trainingMenu');
+        var accBtn = document.getElementById('accountToggle');
+        var accMenu = document.getElementById('accountMenu');
+
+        if (btn && menu) {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                var open = menu.classList.toggle('open');
+                btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+
+                // Close account menu if open
+                if (accMenu) {
+                    accMenu.classList.remove('open');
+                    if (accBtn) accBtn.setAttribute('aria-expanded', 'false');
+                }
+            });
+        }
+
+        // My Account dropdown click toggle
+        if (accBtn && accMenu) {
+            accMenu.classList.add('account-click-menu');
+            accBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                var open = accMenu.classList.toggle('open');
+                accBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+
+                // Close training menu if open
+                if (menu) {
+                    menu.classList.remove('open');
+                    if (btn) btn.setAttribute('aria-expanded', 'false');
+                }
+            });
+        }
+
+        // Close all dropdowns on outside click
+        document.addEventListener('click', function(e) {
+            if (menu && !menu.contains(e.target) && !btn?.contains(e.target)) {
+                menu.classList.remove('open');
+                if (btn) btn.setAttribute('aria-expanded', 'false');
+            }
+            if (accMenu && !accMenu.contains(e.target) && !accBtn?.contains(e.target)) {
+                accMenu.classList.remove('open');
+                if (accBtn) accBtn.setAttribute('aria-expanded', 'false');
+            }
+        });
+    })();
+</script>

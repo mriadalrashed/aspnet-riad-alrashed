@@ -1,0 +1,34 @@
+﻿@model ErrorViewModel
+@{
+    ViewData["Title"] = "Error";
+}
+<div class="error-page" style="text-align:center; padding:80px 20px; max-width:600px; margin:0 auto;">
+    <h1 class="error-title" style="font-family:'Poppins',sans-serif; font-weight:700; font-size:48px; color:#27252F; margin-bottom:16px;">Error</h1>
+
+    <div style="width:80px; height:80px; background:#FEE2E2; border-radius:50%; margin:0 auto 24px; display:flex; align-items:center; justify-content:center;">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#E50004" stroke-width="2">
+            <circle cx="12" cy="12" r="10" />
+            <line x1="12" y1="8" x2="12" y2="12" />
+            <circle cx="12" cy="16" r="1" fill="#E50004" />
+        </svg>
+    </div>
+
+    <h2 class="error-subtitle" style="font-family:'Poppins',sans-serif; font-weight:600; font-size:24px; color:#27252F; margin-bottom:12px;">An error occurred while processing your request.</h2>
+
+    @if (Model.ShowRequestId)
+    {
+        <p style="font-family:'DM Sans',sans-serif; font-size:16px; color:#6F6F6F; margin-bottom:16px;">
+            <strong>Request ID:</strong> <code>@Model.RequestId</code>
+        </p>
+    }
+
+    <div style="margin-top:32px;">
+        <a href="/" class="auth-submit" style="display:inline-flex; width:auto; padding:0 40px; text-decoration:none; background:#D6EB31; color:#27252F;">
+            Go to Homepage
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+        </a>
+    </div>
+</div>
+

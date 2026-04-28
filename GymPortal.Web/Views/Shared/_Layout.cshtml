@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="CoreFitness — Premium fitness club memberships and training programs." />
+    <title>@(ViewData["Title"] != null ? $"{ViewData["Title"]} | CoreFitness" : "CoreFitness")</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="icon" type="image/x-icon" href="~/images/favicon.ico" />
+</head>
+<body>
+
+    @await Html.PartialAsync("_Navbar")
+
+    <main id="main-content">
+        @* Alert banners – rendered from TempData *@
+        @if (TempData["Success"] is string successMsg)
+        {
+            <div class="alert alert--success" role="alert">
+                <span class="alert__icon">✓</span>
+                <span>@successMsg</span>
+                <button class="alert__close" aria-label="Dismiss" onclick="this.parentElement.remove()">×</button>
+            </div>
+        }
+        @if (TempData["Error"] is string errorMsg)
+        {
+            <div class="alert alert--error" role="alert">
+                <span class="alert__icon">✕</span>
+                <span>@errorMsg</span>
+                <button class="alert__close" aria-label="Dismiss" onclick="this.parentElement.remove()">×</button>
+            </div>
+        }
+
+        @RenderBody()
+    </main>
+
+    @await Html.PartialAsync("_Footer")
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
