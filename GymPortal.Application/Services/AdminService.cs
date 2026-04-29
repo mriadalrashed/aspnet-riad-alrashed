@@ -1,9 +1,9 @@
-﻿using GymPortal.Domain.Entites;
-using GymPortal.Domain.Common;
-using GymPortal.Domain.Enum;
+﻿using GymPortal.Application.DTOs;
 using GymPortal.Application.Interfaces.Repositories;
 using GymPortal.Application.Interfaces.Services;
-using GymPortal.Application.DTOs;
+using GymPortal.Domain.Common;
+using GymPortal.Domain.Entities;
+using GymPortal.Domain.Enums;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,10 +14,10 @@ namespace GymPortal.Application.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public AdminService(IUnitOfWork unitOfWork, UserManager<ApplicationUser> userManager)
+        public AdminService(UserManager<ApplicationUser> userManager, IUnitOfWork unitOfWork)
         {
-            _unitOfWork = unitOfWork;
             _userManager = userManager;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<IEnumerable<UserDto>> GetAllUsersAsync()
@@ -27,20 +27,20 @@ namespace GymPortal.Application.Services
             foreach (var user in users)
             {
                 var roles = await _userManager.GetRolesAsync(user);
-                var membershipRepo = await _unitOfWork.Repository<Membership>();
+                var membershipRepo = _unitOfWork.Repository<Membership>();
                 var membership = (await membershipRepo.FindAsync(m => m.UserId == user.Id && m.Status == MembershipStatus.Active)).FirstOrDefault();
                 userDtos.Add(new UserDto
                 {
                     Id = user.Id,
-                    Email = user.Email,
+                    Email = user.Email!,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
                     PhoneNumber = user.PhoneNumber,
                     ProfileImageUrl = user.ProfileImageUrl,
                     DateOfBirth = user.DateOfBirth,
-                    CreatedAt = user.CreatedAt,
+                    CreatedAt = DateTime.UtcNow,
                     Role = roles.FirstOrDefault(),
-                    MembershipPlanName = membership?.MembershipPlanName,
+                    MembershipPlanName = membership?.PlanName,
                     MembershipEndDate = membership?.EndDate
                 });
             }
@@ -51,7 +51,7 @@ namespace GymPortal.Application.Services
         {
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
-                return Result.Failure("User not found");
+                return Result.Failure("User not found.");
             var currentRoles = await _userManager.GetRolesAsync(user);
             await _userManager.RemoveFromRolesAsync(user, currentRoles);
             var result = await _userManager.AddToRoleAsync(user, newRole);
@@ -62,7 +62,7 @@ namespace GymPortal.Application.Services
         {
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
-                return Result.Failure("User not found");
+                return Result.Failure("User not found.");
             var result = await _userManager.DeleteAsync(user);
             return result.Succeeded ? Result.Success() : Result.Failure(string.Join(",", result.Errors.Select(e => e.Description)));
         }
@@ -70,25 +70,40 @@ namespace GymPortal.Application.Services
         public async Task<IEnumerable<ClassSessionDto>> GetAllSessionsAsync()
         {
             var sessionRepo = _unitOfWork.Repository<ClassSession>();
+
+            // Use GetQueryable() with Include to load Bookings
+            var sessions = await sessionRepo.GetQueryable()
+                .Include(s => s.Bookings)           // ← Eager load bookings
+                .ToListAsync();
+
+            var sessionsList = sessions.ToList();
+
+            foreach (var session in sessionsList)
+            {
+                var confirmedCount = session.Bookings?.Count(b => b.Status == BookingStatus.Confirmed) ?? 0;
+            }
+
             var programRepo = _unitOfWork.Repository<TrainingProgram>();
-            var sessions = await sessionRepo.GetAllAsync();
             var programs = await programRepo.GetAllAsync();
             var programDict = programs.ToDictionary(p => p.Id);
-            return sessions.Select(s => new ClassSessionDto
+
+            var result = sessionsList.Select(s => new ClassSessionDto
             {
                 Id = s.Id,
                 TrainingProgramId = s.TrainingProgramId,
                 ProgramTitle = programDict.TryGetValue(s.TrainingProgramId, out var p) ? p.Title : "",
-                Category = p?.category ?? ""  ,
+                Category = p?.Category ?? "",
                 DifficultyLevel = p?.DifficultyLevel ?? DifficultyLevel.Beginner,
                 InstructorName = s.InstructorName,
                 StartTime = s.StartTime,
                 EndTime = s.EndTime,
                 Location = s.Location,
                 MaxParticipants = s.MaxParticipants,
-                AvailableSpots = s.MaxParticipants - s.Bookings.count(b => b.Status == BookingStatus.Confirmed),
+                AvailableSpots = s.MaxParticipants - (s.Bookings?.Count(b => b.Status == BookingStatus.Confirmed) ?? 0),
                 IsActive = s.IsActive
-            });
+            }).ToList();
+
+            return result;
         }
 
         public async Task<Result> CreateSessionAsync(ClassSessionDto dto)
