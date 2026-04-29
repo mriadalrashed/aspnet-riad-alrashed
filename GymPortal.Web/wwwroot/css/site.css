@@ -652,6 +652,25 @@ text-align:center;margin-bottom:48px
 font-family:'Poppins',sans-serif;font-weight:500;font-size:clamp(1.8rem,3vw,3rem);line-height:1.35;color:#27252F;max-width:692px;margin:0 auto
 }
 
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+}
+
+/* 2. Tablet mode: Drop to 2 columns */
+@media (max-width: 1024px) {
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* 3. Phone mode: Drop to 1 column so nothing gets squished */
+@media (max-width: 640px) {
+    .products-grid {
+        grid-template-columns: 1fr;
+    }
+}
 /* white wrapper card */
 
 .home-products-wrapper {
