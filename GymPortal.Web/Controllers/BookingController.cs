@@ -110,6 +110,28 @@ namespace GymPortal.Web.Controllers
             }
         }
 
+        // GET: /Booking/CheckAvailability
+        [HttpGet]
+        public async Task<IActionResult> CheckAvailability(int classSessionId)
+        {
+            var classSession = await _ClassService.GetSessionByIdAsync(classSessionId);
+            if (classSession == null)
+            {
+                return Json(new { available = false, message = "Class not found." });
+            }
+
+            var bookings = await _bookingService.GetBookingsBySessionIdAsync(classSessionId);
+            var confirmedCount = bookings.Count(b => b.Status == BookingStatus.Confirmed);
+            var available = confirmedCount < classSession.MaxParticipants;
+
+            return Json(new
+            {
+                available = available,
+                bookedCount = confirmedCount,
+                maxParticipants = classSession.MaxParticipants,
+                availableSpots = classSession.MaxParticipants - confirmedCount
+            });
+        }
 
         //In TheFuture: Add separate views for upcoming and past bookings
 
