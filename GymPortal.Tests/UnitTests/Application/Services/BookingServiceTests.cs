@@ -5,6 +5,7 @@ using GymPortal.Domain.Common;
 using GymPortal.Domain.Entities;
 using GymPortal.Domain.Enums;
 using GymPortal.Domain.Exceptions;
+using GymPortal.Infrastructure.Services;
 using Moq;
 using Xunit;
 

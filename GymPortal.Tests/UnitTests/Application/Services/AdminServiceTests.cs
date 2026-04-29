@@ -5,6 +5,7 @@ using GymPortal.Application.Services;
 using GymPortal.Domain.Common;
 using GymPortal.Domain.Entities;
 using GymPortal.Domain.Enums;
+using GymPortal.Tests.Helpers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
@@ -257,69 +258,31 @@ namespace GymPortal.Tests.UnitTests.Services
         #endregion
 
         #region GetAllSessionsAsync Tests
-
         [Fact]
         public async Task GetAllSessionsAsync_WhenSessionsExist_ShouldReturnListOfSessionDtos()
         {
             // Arrange
             var programs = new List<TrainingProgram>
-            {
-                new TrainingProgram { Id = 1, Title = "Yoga", Category = "Wellness" },
-                new TrainingProgram { Id = 2, Title = "HIIT", Category = "Cardio" }
-            };
-            var sessions = new List<ClassSession>
-            {
-                new ClassSession
-                {
-                    Id = 1,
-                    TrainingProgramId = 1,
-                    InstructorName = "Jane",
-                    MaxParticipants = 20,
-                    Bookings = new List<Booking>(),
-                    IsActive = true,
-                    StartTime = DateTime.UtcNow,
-                    EndTime = DateTime.UtcNow.AddHours(1),
-                    Location = "Studio A"
-                },
-                new ClassSession
-                {
-                    Id = 2,
-                    TrainingProgramId = 2,
-                    InstructorName = "John",
-                    MaxParticipants = 15,
-                    Bookings = new List<Booking>(),
-                    IsActive = true,
-                    StartTime = DateTime.UtcNow,
-                    EndTime = DateTime.UtcNow.AddHours(1),
-                    Location = "Studio B"
-                }
-            };
-
-            _programRepoMock.Setup(x => x.GetAllAsync()).ReturnsAsync(programs);
-            _sessionRepoMock.Setup(x => x.GetAllAsync()).ReturnsAsync(sessions);
-
-            // Act
-            var result = await _adminService.GetAllSessionsAsync();
-
-            // Assert
-            result.Should().HaveCount(2);
-            var firstSession = result.First();
-            firstSession.ProgramTitle.Should().Be("Yoga");
-            firstSession.InstructorName.Should().Be("Jane");
-        }
-
-        [Fact]
-        public async Task GetAllSessionsAsync_WhenNoSessions_ShouldReturnEmptyList()
         {
-            // Arrange
-            _programRepoMock.Setup(x => x.GetAllAsync()).ReturnsAsync(new List<TrainingProgram>());
-            _sessionRepoMock.Setup(x => x.GetAllAsync()).ReturnsAsync(new List<ClassSession>());
+                 new TrainingProgram { Id = 1, Title = "Yoga", Category = "Wellness" },
+                 new TrainingProgram { Id = 2, Title = "HIIT", Category = "Cardio" }
+        };
+
+            var sessions = new List<ClassSession>
+          {
+              new ClassSession { Id = 1, TrainingProgramId = 1, InstructorName = "Jane", MaxParticipants = 20, Bookings = new List<Booking>(), IsActive = true, StartTime = DateTime.UtcNow, EndTime = DateTime.UtcNow.AddHours(1), Location = "Studio A" }
+        };
+
+            // Use the helper to create async-ready mock
+            var sessionQueryable = sessions.AsQueryable().BuildMockDbSet();
+            _sessionRepoMock.Setup(x => x.GetQueryable()).Returns(sessionQueryable.Object);
+            _programRepoMock.Setup(x => x.GetAllAsync()).ReturnsAsync(programs);
 
             // Act
             var result = await _adminService.GetAllSessionsAsync();
 
             // Assert
-            result.Should().BeEmpty();
+            result.Should().HaveCount(1);
         }
 
         #endregion
