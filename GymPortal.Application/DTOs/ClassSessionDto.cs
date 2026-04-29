@@ -20,12 +20,7 @@ namespace GymPortal.Application.DTOs
 
         // Computed property – no need to store in the database
         public bool IsFull => AvailableSpots <= 0;
-
-
-        // Another computed property
-        public int BookedSpots => MaxParticipants - AvailableSpots;
-
-
+        
         public bool IsActive { get; set; }
     }
 }
