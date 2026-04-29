@@ -4,6 +4,7 @@ using GymPortal.Application.Interfaces.Services;
 using GymPortal.Domain.Entities;
 using GymPortal.Domain.Enums;
 using GymPortal.Web.Controllers;
+using GymPortal.Web.Models;
 using GymPortal.Web.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
