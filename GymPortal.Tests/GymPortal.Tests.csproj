@@ -26,7 +26,13 @@
 
   <ItemGroup>
     <Folder Include="IntegrationTests\" />
-    <Folder Include="UnitTests\Domian\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GymPortal.Application\GymPortal.Application.csproj" />
+    <ProjectReference Include="..\GymPortal.Domain\GymPortal.Domain.csproj" />
+    <ProjectReference Include="..\GymPortal.Infrastructure\GymPortal.Infrastructure.csproj" />
+    <ProjectReference Include="..\GymPortal.Web\GymPortal.Web.csproj" />
   </ItemGroup>
 
 </Project>
