@@ -1,8 +1,9 @@
 ﻿using GymPortal.Application.Interfaces.Repositories;
 using GymPortal.Application.Interfaces.Services;
+using GymPortal.Application.Services;
 using GymPortal.Infrastructure.Data;
 using GymPortal.Infrastructure.Repositories;
-using GymPortal.Application.Services;
+using GymPortal.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,17 +17,17 @@ namespace GymPortal.Infrastructure.Extensions
            var useInMemory = configuration.GetValue<bool>("UseInMemoryDatabase");
             if (useInMemory)
             {
-                services.AddDbContext<GymPortalDbContext>(options =>
+                services.AddDbContext<AppDbContext>(options =>
                     options.UseInMemoryDatabase("GymPortalDb"));
             }
             else
             {
-                services.AddDbContext<GymPortalDbContext>(options =>
+                services.AddDbContext<AppDbContext>(options =>
                     options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
             }
             
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped(typeof(IBaseRepostory<>), typeof(BaseRepostory<>));
+            services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
             services.AddScoped<IMembershipService, MembershipService>();
             services.AddScoped<IClassService, ClassService>();
             services.AddScoped<IBookingService, BookingService>();

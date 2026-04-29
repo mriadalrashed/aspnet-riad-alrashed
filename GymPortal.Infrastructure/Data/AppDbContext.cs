@@ -27,7 +27,7 @@ namespace GymPortal.Infrastructure.Data
             builder.Entity<Membership>()
                    .HasOne(m => m.User)
                    .WithOne(m => m.Membership)
-                   .HasForeignKey(m => m.UserId)
+                   .HasForeignKey<Membership>(m => m.UserId)
                    .OnDelete(DeleteBehavior.Cascade);    
 
             builder.Entity<Booking>()
@@ -43,13 +43,13 @@ namespace GymPortal.Infrastructure.Data
 
             builder.Entity<Booking>()
                     .HasOne(b => b.ClassSession)
-                    .WithMany(c => c.Booking)
+                    .WithMany(c => c.Bookings)
                     .HasForeignKey(b => b.ClassSessionId)
                     .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<ClassSession>()
                     .HasOne(c => c.TrainingProgram)
-                    .WithMany(t => t.ClassSessions)
+                    .WithMany()
                     .HasForeignKey(c => c.TrainingProgramId)
                     .OnDelete(DeleteBehavior.Restrict);
         }
