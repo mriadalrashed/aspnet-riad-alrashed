@@ -1,0 +1,151 @@
+﻿@model GymPortal.Web.ViewModels.ClassesIndexViewModel
+@{
+    ViewData["Title"] = "Class Schedule";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="classes-page">
+    <div style="max-width:1320px;margin:0 auto">
+        <div class="classes-header">
+            <h1 class="classes-title">Class Schedule</h1>
+            <p class="classes-subtitle">Book your next session and train with our expert instructors.</p>
+        </div>
+
+        <!-- Category Filters -->
+        <div class="classes-filters" role="navigation" aria-label="Filter by category">
+            <a href="/Classes" class="classes-filter-btn @(Model.SelectedCategory == null ? "active" : "")">All</a>
+            @if (Model.Categories != null)
+            {
+                @foreach (var cat in Model.Categories)
+                {
+                    <a href="/Classes?category=@cat" class="classes-filter-btn @(Model.SelectedCategory == cat ? "active" : "")">@cat</a>
+                }
+            }
+        </div>
+
+        @if (Model.Sessions == null || !Model.Sessions.Any())
+        {
+            <div class="classes-empty">
+                <p>No upcoming classes found@(Model.SelectedCategory != null ? $" in {Model.SelectedCategory}" : ""). Check back soon!</p>
+                @if (Model.SelectedCategory != null)
+                {
+                    <a href="/Classes" class="classes-button classes-button-book" style="margin-top:16px;display:inline-block">Clear filter</a>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="classes-grid">
+                @foreach (var s in Model.Sessions)
+                {
+                    var alreadyBooked = Model.UserBookedSessionIds != null && Model.UserBookedSessionIds.Contains(s.Id);
+                    var isFull = s.IsFull;
+                    var difficultyLevel = s.DifficultyLevel.ToString();
+                    var diffClass = difficultyLevel.ToLower() switch
+                    {
+                                    "beginner" => "classes-difficulty-beginner",
+                                    "intermediate" => "classes-difficulty-intermediate",
+                                    "advanced" => "classes-difficulty-advanced",
+                        _ => "classes-difficulty-beginner"
+                    };
+
+                    <article class="classes-card" aria-label="@s.ProgramTitle with @s.InstructorName">
+                        <div class="classes-card-header">
+                            <h3 class="classes-card-title">@s.ProgramTitle</h3>
+                            <span class="classes-difficulty @diffClass">@s.DifficultyLevel</span>
+                        </div>
+
+                        <div class="classes-card-meta">
+                            <div class="classes-meta-row">
+                                <svg class="classes-meta-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" />
+                                    <line x1="16" y1="2" x2="16" y2="6" />
+                                    <line x1="8" y1="2" x2="8" y2="6" />
+                                    <line x1="3" y1="10" x2="21" y2="10" />
+                                </svg>
+                                <span class="classes-meta-text">@(s.StartTime.ToString("dddd, MMMM d") ?? "")</span>
+                            </div>
+                            <div class="classes-meta-row">
+                                <svg class="classes-meta-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <polyline points="12 6 12 12 16 14" />
+                                </svg>
+                                <span class="classes-meta-text">@(s.StartTime.ToString("h:mm tt") ?? "") – @(s.EndTime.ToString("h:mm tt") ?? "")</span>
+                            </div>
+                            <div class="classes-meta-row">
+                                <svg class="classes-meta-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                    <circle cx="12" cy="7" r="4" />
+                                </svg>
+                                <span class="classes-meta-text">@s.InstructorName</span>
+                            </div>
+                            <div class="classes-meta-row">
+                                <svg class="classes-meta-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                                    <circle cx="12" cy="10" r="3" />
+                                </svg>
+                                <span class="classes-meta-text">@s.Location</span>
+                            </div>
+                        </div>
+
+                        <div class="classes-card-footer">
+                            <span class="classes-spots">
+                                @if (isFull)
+                                {
+                                    <text>Full</text>
+                                }
+                                else if (s.AvailableSpots <= 3)
+                                {
+                                    <span style="color:#D97706">Only @s.AvailableSpots left!</span>
+                                }
+                                else
+                                {
+                                    <text>@s.AvailableSpots / @s.MaxParticipants spots</text>
+                                }
+                            </span>
+
+                            @if (!User.Identity?.IsAuthenticated ?? true)
+                            {
+                                <a href="/Account/SignIn?returnUrl=/Classes" class="classes-button classes-button-signin">Sign In to Book</a>
+                            }
+                            else if (alreadyBooked)
+                            {
+                                <span class="classes-button" style="background:#ECFDF5;color:#065F46;cursor:default;display:inline-flex;align-items:center;gap:4px">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                                        <polyline points="20 6 9 17 4 12" />
+                                    </svg>
+                                    Booked
+                                </span>
+                            }
+                            else if (!isFull)
+                            {
+                                <form method="post" asp-controller="Classes" asp-action="Book">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="sessionId" value="@s.Id" />
+                                    <button type="submit" class="classes-button classes-button-book">Book Now</button>
+                                </form>
+                            }
+                            else
+                            {
+                                <button class="classes-button" disabled style="opacity:0.5;cursor:not-allowed;background:#E6E6E6;color:#6F6F6F">Full</button>
+                            }
+                        </div>
+                    </article>
+                }
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Auto-dismiss alerts after 5 seconds
+        setTimeout(function() {
+            document.querySelectorAll('.alert').forEach(function(el) {
+                el.style.opacity = '0';
+                el.style.transition = 'opacity 0.5s';
+                setTimeout(function() { el.remove(); }, 500);
+            });
+        }, 5000);
+    </script>
+}

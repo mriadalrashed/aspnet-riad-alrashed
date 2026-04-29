@@ -102,6 +102,7 @@
                         <tbody>
                             @foreach (var s in Model.Sessions)
                             {
+                                Console.WriteLine($"{Model.Sessions}");
                                 var isPast = s.StartTime < DateTime.UtcNow;
                                 <tr class="@(!s.IsActive || isPast ? "admin-table-inactive" : "")">
                                     <td>
@@ -116,7 +117,7 @@
                                     <td>@s.Location</td>
                                     <td>
                                         <span class="badge @(s.IsFull ? "badge-danger" : s.AvailableSpots <= 3 ? "badge-warning" : "badge-success")">
-                                            @(s.MaxParticipants - s.AvailableSpots) / @s.MaxParticipants
+                                            @(s.AvailableSpots) / @s.MaxParticipants
                                         </span>
                                     </td>
                                     <td>
