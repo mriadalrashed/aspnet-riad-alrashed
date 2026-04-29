@@ -2,12 +2,12 @@
 using GymPortal.Application.Interfaces.Repositories;
 using GymPortal.Application.Interfaces.Services;
 using GymPortal.Domain.Common;
-using GymPortal.Domain.Entites;
+using GymPortal.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 
 namespace GymPortal.Application.Services
 {
-    public class ClassService : IClassService   
+    public class ClassService : IClassService
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -16,7 +16,7 @@ namespace GymPortal.Application.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<ClassSession>> GetAvailableSessionAsync(string? category = null)
+        public async Task<IEnumerable<ClassSession>> GetAvailableSessionsAsync(string? category = null)
         {
             var sessionRepo = _unitOfWork.Repository<ClassSession>();
             var query = await sessionRepo.GetAllAsync();
@@ -50,8 +50,8 @@ namespace GymPortal.Application.Services
             var repo = _unitOfWork.Repository<ClassSession>();
             var session = await repo.GetByIdAsync(id);
             if (session == null)
-                return Result.Failure("Session not found");
-            await repo.Delete(session);
+                return Result.Failure("Session not found.");
+            repo.Delete(session);
             await _unitOfWork.CompleteAsync();
             return Result.Success();
         }
