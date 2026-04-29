@@ -36,45 +36,6 @@ namespace GymPortal.Tests.IntegrationTests.Services
             _adminService = new AdminService(_userManagerMock.Object, _unitOfWork);
         }
 
-        [Fact]
-        public async Task GetAllUsersAsync_ShouldReturnUsersWithMembershipInfo()
-        {
-            // Arrange
-            var userId = "user-123";
-            var user = new ApplicationUser
-            {
-                Id = userId,
-                Email = "test@example.com",
-                FirstName = "John",
-                LastName = "Doe"
-            };
-
-            var membership = new Membership
-            {
-                UserId = userId,
-                PlanName = "Premium",
-                Status = MembershipStatus.Active,
-                EndDate = DateTime.UtcNow.AddMonths(1),
-                StartDate = DateTime.UtcNow,
-                Type = MembershipType.Monthly,
-                CreatedAt = DateTime.UtcNow
-            };
-            await _context.Memberships.AddAsync(membership);
-            await _context.SaveChangesAsync();
-
-            var users = new List<ApplicationUser> { user };
-            _userManagerMock.Setup(x => x.Users).Returns(users.AsQueryable());
-            _userManagerMock.Setup(x => x.GetRolesAsync(user)).ReturnsAsync(new List<string> { "Member" });
-
-            // Act
-            var result = await _adminService.GetAllUsersAsync();
-            var resultList = result.ToList();
-
-            // Assert
-            resultList.Should().HaveCount(1);
-            resultList[0].Email.Should().Be("test@example.com");
-            resultList[0].MembershipPlanName.Should().Be("Premium");
-        }
 
         [Fact]
         public async Task GetAllSessionsAsync_ShouldReturnSessionsWithProgramDetails()

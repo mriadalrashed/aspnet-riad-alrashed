@@ -5,6 +5,7 @@ using GymPortal.Domain.Enums;
 using GymPortal.Domain.Exceptions;
 using GymPortal.Infrastructure.Data;
 using GymPortal.Infrastructure.Repositories;
+using GymPortal.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 
