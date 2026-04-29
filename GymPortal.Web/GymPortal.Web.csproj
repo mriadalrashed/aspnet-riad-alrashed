@@ -23,4 +23,10 @@
     <Folder Include="wwwroot\uploads\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\GymPortal.Application\GymPortal.Application.csproj" />
+    <ProjectReference Include="..\GymPortal.Domain\GymPortal.Domain.csproj" />
+    <ProjectReference Include="..\GymPortal.Infrastructure\GymPortal.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
