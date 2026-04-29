@@ -403,10 +403,12 @@ namespace GymPortal.Web.Controllers
             return View(viewModel);
         }
 
-        private IActionResult RedirectToLocal(string returnUrl)
+        private IActionResult RedirectToLocal(string? returnUrl)
         {
-            if (Url.IsLocalUrl(returnUrl))
+            if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+            {
                 return Redirect(returnUrl);
+            }
             else
                 return RedirectToAction("Index", "Home");
         }
