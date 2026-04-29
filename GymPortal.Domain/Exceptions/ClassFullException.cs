@@ -2,6 +2,6 @@
 {
     public class ClassFullException : DomainException
     {
-        public ClassFullException() : base("This class is already full") { }
+        public ClassFullException() : base("This class is already full.") { }
     }
 }
