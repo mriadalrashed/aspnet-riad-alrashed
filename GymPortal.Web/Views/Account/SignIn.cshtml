@@ -1,0 +1,110 @@
+﻿@model GymPortal.Web.ViewModels.SignInViewModel
+@{
+    ViewData["Title"] = "Sign In";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="auth-page">
+    <div class="auth-card">
+        <h1 class="auth-title">Welcome Back!</h1>
+        <p class="auth-description">Log in to continue your fitness journey with full access to your customized program, training history, and progress tracking. Stay consistent, monitor your development, and keep moving forward with the structure and support built into your account.</p>
+        <hr class="auth-divider" />
+
+        <!-- Social -->
+        <div class="auth-social">
+            <!-- Google Login Form -->
+            <form method="post" asp-action="ExternalLogin" asp-controller="Account" style="display:inline;">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="provider" value="Google" />
+                <input type="hidden" name="returnUrl" value="@(Model.ReturnUrl ?? "/")" />
+                <button type="submit" class="auth-social-btn" aria-label="Sign in with Google">
+                    <img src="/images/icon-google.png" alt="Google" />
+                </button>
+            </form>
+
+            <!-- Facebook Login Form -->
+            <form method="post" asp-action="ExternalLogin" asp-controller="Account" style="display:inline;">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="provider" value="Facebook" />
+                <input type="hidden" name="returnUrl" value="@(Model.ReturnUrl ?? "/")" />
+                <button type="submit" class="auth-social-btn" aria-label="Sign in with Facebook">
+                    <img src="/images/icon-facebook.png" alt="Facebook" />
+                </button>
+            </form>
+
+            <!-- GitHub Login (placeholder) -->
+            <a href="#" class="auth-social-btn" aria-label="Sign in with GitHub">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
+                </svg>
+            </a>
+        </div>
+        <div class="auth-or-divider">
+            <span class="auth-or-line"></span>
+            <span class="auth-or-text">OR CONTINUE WITH</span>
+            <span class="auth-or-line"></span>
+        </div>
+
+        @await Html.PartialAsync("_ValidationSummary")
+
+        <form method="post" asp-action="SignIn" asp-controller="Account" class="auth-form" novalidate>
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="ReturnUrl" />
+
+            <div class="auth-form-group">
+                <label asp-for="Email" class="auth-label">Email Address *</label>
+                <input asp-for="Email" class="auth-input" type="email" autocomplete="email" placeholder="Enter Email Address" required />
+                <span asp-validation-for="Email" class="text-danger" style="font-size:12px;color:#B91C1C;margin-top:4px"></span>
+            </div>
+
+            <div class="auth-form-group">
+                <div class="auth-label-row">
+                    <label asp-for="Password" class="auth-label" style="margin:0">Password</label>
+                    <a href="/Account/ForgotPassword" class="auth-forgot-link">Forgot your password?</a>
+                </div>
+                <div class="auth-password-wrapper">
+                    <input asp-for="Password" class="auth-input" type="password" id="password" autocomplete="current-password" placeholder="Enter Password" required />
+                    <button type="button" class="auth-password-toggle" onclick="togglePassword('password')" aria-label="Toggle password">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                            <circle cx="12" cy="12" r="3" />
+                        </svg>
+                    </button>
+                </div>
+                <span asp-validation-for="Password" class="text-danger" style="font-size:12px;color:#B91C1C;margin-top:4px"></span>
+            </div>
+
+            <button type="submit" class="auth-submit">
+                Continue
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+            </button>
+
+            <label class="auth-checkbox-label" style="justify-content:center; margin-top:16px">
+                <input asp-for="RememberMe" type="checkbox" />
+                <span class="auth-checkbox-custom"></span>
+                Remember me
+            </label>
+
+            <p class="auth-footer" style="margin-top:24px">
+                Don't have an account? <a href="/Account/SignUp" class="auth-link">Sign up</a>
+            </p>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        function togglePassword(id) {
+            var input = document.getElementById(id);
+            if (input.type === 'password') {
+                input.type = 'text';
+            } else {
+                input.type = 'password';
+            }
+        }
+    </script>
+}
+

@@ -1,0 +1,160 @@
+﻿@model GymPortal.Web.ViewModels.MyBookingsViewModel
+@{
+    ViewData["Title"] = "My Bookings";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="account-page-new">
+    <h1 class="account-page-heading">My Account</h1>
+
+    <div class="account-layout">
+        <!-- ═══ Sidebar ═══ -->
+        <aside class="account-sidebar">
+            <div class="account-avatar-card">
+                <img src="@(string.IsNullOrEmpty(Model.User?.ProfileImageUrl) ? "/images/trainer-profile.png" : Model.User.ProfileImageUrl)"
+                     alt="Profile photo" />
+            </div>
+
+            <div class="account-menu-card">
+                <div class="account-menu-header">
+                    <span class="account-menu-title">Menu Options</span>
+                </div>
+                <nav class="account-menu-list" aria-label="Account navigation">
+                    <a href="/Account/MyAccount" class="account-menu-item">
+                        <span class="account-menu-item-text">About Me</span>
+                        <svg class="account-menu-item-arrow" width="13" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6" /></svg>
+                    </a>
+                    <a href="/Account/MyMembership" class="account-menu-item">
+                        <span class="account-menu-item-text">My Membership</span>
+                        <svg class="account-menu-item-arrow" width="13" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6" /></svg>
+                    </a>
+                    <a href="/Account/MyBookings" class="account-menu-item active" aria-current="page">
+                        <span class="account-menu-item-text">My Bookings</span>
+                        <svg class="account-menu-item-arrow" width="13" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6" /></svg>
+                    </a>
+                    <form method="post" action="/Account/SignOut" style="display:contents">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="account-menu-item" style="border-bottom:1px solid #E6E6E6">
+                            <span class="account-menu-item-text">Sign Out</span>
+                            <svg class="account-menu-item-arrow" width="13" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6" /></svg>
+                        </button>
+                    </form>
+                </nav>
+                <p class="account-menu-remove-note">If you like to cancel your account click below</p>
+                <form method="post" action="/Account/DeleteAccount" onsubmit="return confirm('Are you sure?')">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="account-menu-remove">Remove Account</button>
+                </form>
+            </div>
+        </aside>
+
+        <!-- ═══ Main content ═══ -->
+        <div>
+            <div class="account-form-card">
+                <h2 class="account-form-title">My Bookings</h2>
+                <hr class="account-form-divider" />
+
+                @if (Model.Bookings == null || !Model.Bookings.Any())
+                {
+                    <div style="text-align:center;padding:48px 0">
+                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#D6EB31" stroke-width="1.5" style="margin-bottom:16px">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                            <line x1="16" y1="2" x2="16" y2="6" />
+                            <line x1="8" y1="2" x2="8" y2="6" />
+                            <line x1="3" y1="10" x2="21" y2="10" />
+                        </svg>
+                        <p style="font-size:18px;font-weight:600;color:#111;margin:0 0 8px">No Bookings Yet</p>
+                        <p style="color:#6F6F6F;font-size:14px;margin:0 0 24px">You haven't booked any classes yet. Check out our class schedule!</p>
+                        <a href="/Classes" class="account-save-btn" style="text-decoration:none">
+                            View Classes
+                            <svg width="13" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6" /></svg>
+                        </a>
+                    </div>
+                }
+                else
+                {
+                    <div style="display:flex;flex-direction:column;gap:16px;margin-top:8px">
+                        @foreach (var booking in Model.Bookings)
+                        {
+                            var isPast = booking.StartTime < DateTime.UtcNow;
+                            var isCancelled = booking.Status.ToString() == "Cancelled";
+
+                            <div style="border:1px solid #E6E6E6;border-radius:12px;padding:20px;display:flex;justify-content:space-between;align-items:flex-start;gap:16px">
+                                <div style="flex:1">
+                                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap">
+                                        <span style="font-size:16px;font-weight:700;color:#111">@booking.ProgramTitle</span>
+                                        <span style="font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;
+                                            background-color:@(isCancelled ? "#FFE5E5" : isPast ? "#F0F0F0" : "#E8F5E9");
+                                            color:@(isCancelled ? "#E50004" : isPast ? "#6F6F6F" : "#2E7D32")">
+                                            @(isCancelled ? "Cancelled" : isPast ? "Completed" : "Upcoming")
+                                        </span>
+                                    </div>
+                                    <div style="display:flex;flex-wrap:wrap;gap:16px;color:#6F6F6F;font-size:13px;margin-top:8px">
+                                        <span style="display:flex;align-items:center;gap:4px">
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle">
+                                                <rect x="3" y="4" width="18" height="18" rx="2" />
+                                                <line x1="16" y1="2" x2="16" y2="6" />
+                                                <line x1="8" y1="2" x2="8" y2="6" />
+                                                <line x1="3" y1="10" x2="21" y2="10" />
+                                            </svg>
+                                            @booking.StartTime.ToString("ddd, MMM d")
+                                        </span>
+                                        <span style="display:flex;align-items:center;gap:4px">
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle">
+                                                <circle cx="12" cy="12" r="10" />
+                                                <polyline points="12 6 12 12 16 14" />
+                                            </svg>
+                                            @booking.StartTime.ToString("h:mm tt") – @booking.EndTime.ToString("h:mm tt")
+                                        </span>
+                                        <span style="display:flex;align-items:center;gap:4px">
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle">
+                                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                                <circle cx="12" cy="7" r="4" />
+                                            </svg>
+                                            @booking.InstructorName
+                                        </span>
+                                        <span style="display:flex;align-items:center;gap:4px">
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle">
+                                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                                                <circle cx="12" cy="10" r="3" />
+                                            </svg>
+                                            @booking.Location
+                                        </span>
+                                    </div>
+                                </div>
+                                @if (!isPast && !isCancelled)
+                                {
+                                    <form method="post" action="/Classes/Cancel"
+                                          onsubmit="return confirm('Are you sure you want to cancel this booking?')" style="flex-shrink:0">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="bookingId" value="@booking.Id" />
+                                        <input type="hidden" name="returnUrl" value="/Account/MyBookings" />
+                                        <button type="submit"
+                                                style="background:transparent;border:1px solid #E50004;color:#E50004;padding:8px 16px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:all 0.2s"
+                                                onmouseover="this.style.backgroundColor='#E50004';this.style.color='white'"
+                                                onmouseout="this.style.backgroundColor='transparent';this.style.color='#E50004'">
+                                            Cancel
+                                        </button>
+                                    </form>
+                                }
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Auto-dismiss alerts after 5 seconds
+        setTimeout(function() {
+            document.querySelectorAll('.alert').forEach(function(el) {
+                el.style.opacity = '0';
+                el.style.transition = 'opacity 0.5s';
+                setTimeout(function() { el.remove(); }, 500);
+            });
+        }, 5000);
+    </script>
+}

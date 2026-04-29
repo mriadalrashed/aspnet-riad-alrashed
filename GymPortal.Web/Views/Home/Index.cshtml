@@ -1,0 +1,154 @@
+﻿@model GymPortal.Web.ViewModels.HomeViewModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<!-- ═══ HERO ═══ -->
+<section class="home-hero" aria-label="Hero">
+    <div class="home-hero-container">
+        <div class="home-hero-bg"></div>
+        <div class="home-hero-bg-image" aria-hidden="true">
+            <img src="/images/dark-bg.png" alt="" />
+        </div>
+        <div class="home-hero-content">
+            <div class="home-hero-text">
+                <div class="home-hero-badge">
+                    <span class="home-hero-badge-dot"></span>
+                    <span class="home-hero-badge-text">Strong Body. Strong Mind.</span>
+                </div>
+                <h1 class="home-hero-title">
+                    Build Strength Boost<br />Confidence Today!
+                </h1>
+                <p class="home-hero-description">
+                    Begin your fitness journey with expert trainers, modern equipment, and a
+                    supportive environment designed to help you build strength and confidence.
+                </p>
+                <div class="home-hero-features">
+                    <div class="home-hero-feature">
+                        <svg class="home-hero-feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12" /></svg>
+                        <span class="home-hero-feature-text">Transform your body with training</span>
+                    </div>
+                    <div class="home-hero-feature">
+                        <svg class="home-hero-feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12" /></svg>
+                        <span class="home-hero-feature-text">Personal training for real results</span>
+                    </div>
+                    <div class="home-hero-feature">
+                        <svg class="home-hero-feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12" /></svg>
+                        <span class="home-hero-feature-text">Build confidence through fitness</span>
+                    </div>
+                    <div class="home-hero-feature">
+                        <svg class="home-hero-feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12" /></svg>
+                        <span class="home-hero-feature-text">Fitness tailored to your goals</span>
+                    </div>
+                </div>
+                <hr class="home-hero-divider" />
+                <a href="/Membership" class="home-yellow-btn">
+                    Become a member
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                </a>
+            </div>
+            <div class="home-hero-image" aria-hidden="true">
+                <img src="/images/hero-athletes.png" alt="CoreFitness athletes" />
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ PARTNERS BAR ═══ -->
+<section class="home-partners" aria-label="Partners">
+    <div class="home-partners-container">
+        <div class="home-partners-logos">
+            <img src="/images/logo1.png" alt="Partner 1" class="home-partners-logo" />
+            <img src="/images/logo2.png" alt="Partner 2" class="home-partners-logo" />
+            <img src="/images/logo3.png" alt="Partner 3" class="home-partners-logo" />
+            <img src="/images/logo4.png" alt="Partner 4" class="home-partners-logo" />
+            <img src="/images/logo5.png" alt="Partner 5" class="home-partners-logo" />
+        </div>
+        <p class="home-partners-text">Modern Equipment</p>
+    </div>
+</section>
+
+<!-- ═══ ABOUT ═══ -->
+<section class="home-about" id="about" aria-labelledby="about-heading">
+    <div class="home-about-container">
+        <div class="home-about-images">
+            <img src="/images/about-1.png" alt="CoreFitness training session" class="home-about-img-tall" loading="lazy" />
+            <img src="/images/about-2.png" alt="CoreFitness gym floor" class="home-about-img-short" loading="lazy" />
+        </div>
+        <div class="home-about-text">
+            <div class="home-about-badge">
+                <span class="home-about-badge-dot"></span>
+                <span class="home-about-badge-text">About Us</span>
+            </div>
+            <h2 class="home-about-title" id="about-heading">
+                Elevating Fitness Journey<br />with Expert Guidance
+            </h2>
+            <p class="home-about-description">
+                We support every stage of your fitness journey with certified trainers,
+                personalized programs proven methods designed to help you train safely, build strength.
+            </p>
+            <div class="home-about-mission">
+                <p class="home-about-mission-text">
+                    Our mission is to transform lives by combining expert guidance, powerful
+                    training programs, and a motivating community that helps you grow stronger every day.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ PROGRAMS ═══ -->
+<section class="home-programs" id="programs" aria-labelledby="programs-heading">
+    <div class="home-programs-inner">
+        <div class="home-programs-header">
+            <div class="home-section-badge">
+                <span class="home-section-badge-dot"></span>
+                <span class="home-section-badge-text">Our Programs</span>
+            </div>
+            <h2 class="home-programs-title" id="programs-heading">
+                Professional training program<br />for stronger health
+            </h2>
+        </div>
+
+        <div class="home-programs-grid">
+                <article class="home-program-card">
+                    <img src="/images/program1.png" alt="Strength Training" class="home-program-card-image" />
+                    <div class="home-program-card-overlay"></div>
+                    <span class="home-program-card-title">Strength Training</span>
+                </article>
+                <article class="home-program-card">
+                    <img src="/images/program-2.png" alt="Cardio" class="home-program-card-image" />
+                    <div class="home-program-card-overlay"></div>
+                    <span class="home-program-card-title">Cardio & Endurance</span>
+                </article>
+                <article class="home-program-card">
+                    <img src="/images/program-3.png" alt="Functional Fitness" class="home-program-card-image" />
+                    <div class="home-program-card-overlay"></div>
+                    <span class="home-program-card-title">Functional Fitness</span>
+                </article>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ STORE ═══ -->
+<section class="home-store" id="store" aria-labelledby="store-heading">
+    <div class="home-store-header">
+        <div class="home-section-badge">
+            <span class="home-section-badge-dot"></span>
+            <span class="home-section-badge-text">Our Store</span>
+        </div>
+        <h2 class="home-store-title" id="store-heading">
+            High quality fitness products<br />built for results
+        </h2>
+    </div>
+
+    <div class="home-products-wrapper">
+        <div class="home-products-grid">
+                <article class="home-product-card"><img src="/images/product-1.png" alt="Pro Weight Set" /></article>
+                <article class="home-product-card"><img src="/images/product-2.png" alt="Gym Bag XL" /></article>
+                <article class="home-product-card"><img src="/images/product-3.png" alt="Smart Fitness Band" /></article>
+                <article class="home-product-card"><img src="/images/product-4.png" alt="Treadmill Pro X" /></article>
+        </div>
+    </div>
+</section>
+

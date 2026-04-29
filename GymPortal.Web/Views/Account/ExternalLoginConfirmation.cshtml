@@ -1,0 +1,41 @@
+﻿@model GymPortal.Application.DTOs.ExternalLoginConfirmationDto
+@{
+    ViewData["Title"] = "Complete Registration";
+}
+
+<div class="auth-page">
+    <div class="auth-card">
+        <h1 class="auth-title">Complete Your Registration</h1>
+        <p class="auth-description">We just need a few more details to complete your account setup.</p>
+        <hr class="auth-divider" />
+
+        @await Html.PartialAsync("_ValidationSummary")
+
+        <form method="post" asp-action="ExternalLoginConfirmation" asp-controller="Account" class="auth-form" novalidate>
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="Email" />
+
+            <div class="auth-form-group">
+                <label asp-for="Email" class="auth-label">Email Address</label>
+                <input asp-for="Email" class="auth-input" type="email" readonly />
+            </div>
+
+            <div class="auth-form-group">
+                <label asp-for="Name" class="auth-label">Full Name</label>
+                <input asp-for="Name" class="auth-input" type="text" placeholder="Enter your full name" required />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="auth-submit">
+                Complete Registration
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+            </button>
+
+            <p class="auth-footer">
+                <a href="/Account/SignIn" class="auth-link">Cancel and return to Sign In</a>
+            </p>
+        </form>
+    </div>
+</div>

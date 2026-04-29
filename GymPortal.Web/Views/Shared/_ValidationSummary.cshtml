@@ -1,0 +1,20 @@
+﻿@model object
+
+@{
+    // Only show validation errors after a POST attempt, not on initial page load
+    bool wasSubmitted = Context.Request.Method == "POST"
+                        || (ViewData["ShowValidation"] is true);
+}
+
+@if (wasSubmitted && !ViewData.ModelState.IsValid)
+{
+    <div class="validation-summary" role="alert">
+        <p class="validation-summary__title">Please fix the following errors:</p>
+        <ul class="validation-summary__list">
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <li>@error.ErrorMessage</li>
+            }
+        </ul>
+    </div>
+}

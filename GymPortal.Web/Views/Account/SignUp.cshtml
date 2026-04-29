@@ -1,0 +1,186 @@
+﻿@model GymPortal.Web.ViewModels.SignUpViewModel
+@{
+    ViewData["Title"] = "Create Account";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    // Step 1 = show only email; Step 2 = show all fields
+    // We detect step2 if ModelState was submitted (HasErrors or explicit step param)
+    bool isStep2 = ViewData["Step2"] is true
+                   || (ViewContext.HttpContext.Request.Method == "POST" && !ViewData.ModelState.IsValid)
+                   || TempData["SignUpEmail"] is string;
+
+    string? prefillEmail = TempData["SignUpEmail"] as string
+                          ?? (isStep2 ? Model?.Email : null);
+}
+
+<div class="auth-page">
+    <div class="auth-card">
+        <h1 class="auth-title">Become a Member</h1>
+        <p class="auth-description">Sign up to continue your fitness journey with full access to your customized program, training history, and progress tracking. Stay consistent, monitor your development, and keep moving forward with the structure and support built into your account.</p>
+        <hr class="auth-divider" />
+
+        <!-- Social Login - Now using POST forms instead of GET links -->
+        <div class="auth-social">
+            <!-- Google Sign Up Form -->
+            <form method="post" asp-action="ExternalLogin" asp-controller="Account" style="display:inline;">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="provider" value="Google" />
+                <input type="hidden" name="returnUrl" value="/" />
+                <button type="submit" class="auth-social-btn" aria-label="Sign up with Google">
+                    <img src="/images/icon-google.png" alt="Google" />
+                </button>
+            </form>
+
+            <!-- Facebook Sign Up Form -->
+            <form method="post" asp-action="ExternalLogin" asp-controller="Account" style="display:inline;">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="provider" value="Facebook" />
+                <input type="hidden" name="returnUrl" value="/" />
+                <button type="submit" class="auth-social-btn" aria-label="Sign up with Facebook">
+                    <img src="/images/icon-facebook.png" alt="Facebook" />
+                </button>
+            </form>
+
+            <!-- GitHub Sign Up (placeholder - would need GitHub OAuth setup) -->
+            <a href="#" class="auth-social-btn" aria-label="Sign up with GitHub">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
+                </svg>
+            </a>
+        </div>
+
+        <div class="auth-or-divider">
+            <span class="auth-or-line"></span>
+            <span class="auth-or-text">OR CONTINUE WITH</span>
+            <span class="auth-or-line"></span>
+        </div>
+
+        @* STEP 1: Email only *@
+        @if (!isStep2)
+        {
+            <form method="post" asp-action="SignUpStep1" asp-controller="Account" class="auth-form" id="step1Form" novalidate>
+                @Html.AntiForgeryToken()
+                <div class="auth-form-group">
+                    <label class="auth-label">Email Address *</label>
+                    <input name="Email" id="emailInput" class="auth-input" type="email"
+                           autocomplete="email" placeholder="Enter Email Address"
+                           value="@prefillEmail" required />
+                    <span id="emailError" style="font-size:12px;color:#B91C1C;margin-top:4px;display:none">Please enter a valid email address.</span>
+                </div>
+                <button type="submit" class="auth-submit" id="step1Btn">
+                    Continue
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                </button>
+                <p class="auth-footer" style="margin-top:12px">We will send a verification code to your email address.</p>
+            </form>
+        }
+        else
+        {
+            @* STEP 2: All fields *@
+            @await Html.PartialAsync("_ValidationSummary")
+
+            <form method="post" asp-action="SignUp" asp-controller="Account" class="auth-form" novalidate>
+                @Html.AntiForgeryToken()
+
+                <div class="auth-form-row">
+                    <div class="auth-form-group">
+                        <label asp-for="FirstName" class="auth-label"></label>
+                        <input asp-for="FirstName" class="auth-input" autocomplete="given-name" placeholder="First Name" required />
+                        <span asp-validation-for="FirstName" class="text-danger" style="font-size:12px;color:#B91C1C;margin-top:4px"></span>
+                    </div>
+                    <div class="auth-form-group">
+                        <label asp-for="LastName" class="auth-label"></label>
+                        <input asp-for="LastName" class="auth-input" autocomplete="family-name" placeholder="Last Name" required />
+                        <span asp-validation-for="LastName" class="text-danger" style="font-size:12px;color:#B91C1C;margin-top:4px"></span>
+                    </div>
+                </div>
+
+                <div class="auth-form-group">
+                    <label asp-for="Email" class="auth-label">Email Address *</label>
+                    <input asp-for="Email" class="auth-input" type="email" autocomplete="email"
+                           placeholder="Enter Email Address" value="@prefillEmail" required />
+                    <span asp-validation-for="Email" class="text-danger" style="font-size:12px;color:#B91C1C;margin-top:4px"></span>
+                </div>
+
+                <div class="auth-form-group">
+                    <label asp-for="PhoneNumber" class="auth-label">Phone Number (optional)</label>
+                    <input asp-for="PhoneNumber" class="auth-input" type="tel" autocomplete="tel" placeholder="Enter Phone Number" />
+                </div>
+
+                <div class="auth-form-row">
+                    <div class="auth-form-group">
+                        <label asp-for="Password" class="auth-label">Password</label>
+                        <div class="auth-password-wrapper">
+                            <input asp-for="Password" class="auth-input" type="password" id="password"
+                                   autocomplete="new-password" placeholder="Min. 8 characters" required />
+                            <button type="button" class="auth-password-toggle" onclick="togglePassword('password')" aria-label="Toggle password">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                    <circle cx="12" cy="12" r="3" />
+                                </svg>
+                            </button>
+                        </div>
+                        <span asp-validation-for="Password" class="text-danger" style="font-size:12px;color:#B91C1C;margin-top:4px"></span>
+                    </div>
+                    <div class="auth-form-group">
+                        <label asp-for="ConfirmPassword" class="auth-label">Confirm Password</label>
+                        <div class="auth-password-wrapper">
+                            <input asp-for="ConfirmPassword" class="auth-input" type="password" id="confirmPassword"
+                                   autocomplete="new-password" placeholder="Confirm Password" required />
+                            <button type="button" class="auth-password-toggle" onclick="togglePassword('confirmPassword')" aria-label="Toggle password">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                    <circle cx="12" cy="12" r="3" />
+                                </svg>
+                            </button>
+                        </div>
+                        <span asp-validation-for="ConfirmPassword" class="text-danger" style="font-size:12px;color:#B91C1C;margin-top:4px"></span>
+                    </div>
+                </div>
+
+                <label class="auth-checkbox-label">
+                    <input asp-for="AgreeToTerms" type="checkbox" required />
+                    <span class="auth-checkbox-custom"></span>
+                    I agree to the <a href="#" class="auth-checkbox-link">Terms &amp; Conditions</a> and <a href="#" class="auth-checkbox-link">Privacy Policy</a>
+                </label>
+                <span asp-validation-for="AgreeToTerms" class="text-danger" style="font-size:12px;color:#B91C1C;margin-top:4px"></span>
+
+                <button type="submit" class="auth-submit">
+                    Create Account
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                </button>
+            </form>
+        }
+
+        <p class="auth-footer">Already have an account? <a href="/Account/SignIn" class="auth-link">Sign in</a></p>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        function togglePassword(id) {
+            var input = document.getElementById(id);
+            input.type = input.type === 'password' ? 'text' : 'password';
+        }
+
+        // Step 1 client-side email validation
+        var step1Form = document.getElementById('step1Form');
+        if (step1Form) {
+            step1Form.addEventListener('submit', function(e) {
+                var emailInput = document.getElementById('emailInput');
+                var emailError = document.getElementById('emailError');
+                var emailRegex = /^[^\s@@]+@@[^\s@@]+\.[^\s@@]+$/;
+
+                if (!emailInput.value || !emailRegex.test(emailInput.value)) {
+                    e.preventDefault();
+                    emailError.style.display = 'block';
+                    emailInput.focus();
+                } else {
+                    emailError.style.display = 'none';
+                }
+            });
+        }
+    </script>
+}
+

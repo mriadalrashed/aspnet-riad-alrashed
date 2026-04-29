@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Access Denied";
+}
+
+<div class="auth-page">
+    <div class="auth-card" style="text-align:center; padding:60px">
+        <div style="width:80px; height:80px; background:#FEE2E2; border-radius:50%; margin:0 auto 24px; display:flex; align-items:center; justify-content:center">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#B91C1C" stroke-width="2">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="8" x2="12" y2="12" />
+                <circle cx="12" cy="16" r="0.5" fill="#B91C1C" stroke="none" />
+            </svg>
+        </div>
+
+        <h1 class="auth-title" style="font-size:32px; margin-bottom:16px">Access Denied</h1>
+        <p class="auth-description" style="margin-bottom:32px">
+            You don't have permission to access this page.
+            Please contact an administrator if you believe this is an error.
+        </p>
+
+        <a href="/" class="auth-submit" style="display:inline-flex; width:auto; padding:0 40px; text-decoration:none">
+            Go to Home
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M3 12h14M12 5l7 7-7 7" />
+            </svg>
+        </a>
+    </div>
+</div>

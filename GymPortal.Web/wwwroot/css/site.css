@@ -1,0 +1,3086 @@
+/* ═══════════════════════════════════════════════════════════════
+   CoreFitness — site.css  (Figma Pixel Perfect)
+   Canvas: 1920px | Content: 1320px max
+   #131020 dark | #D6EB31 accent | #27252F text | #F7F7F7 page
+   Poppins headings | DM Sans body
+═══════════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+html {
+scroll-behavior:smooth
+}
+
+body {
+font-family:'DM Sans',sans-serif;font-size:16px;background:#F7F7F7;color:#27252F;min-height:100vh;display:flex;flex-direction:column
+}
+
+#main-content {
+flex:1
+}
+
+img {
+display:block;max-width:100%
+}
+
+a {
+color:inherit;text-decoration:none
+}
+
+ul,ol {
+list-style:none
+}
+
+h1,h2,h3,h4,h5,h6 {
+font-family:'Poppins',sans-serif;line-height:1.2
+}
+
+button {
+font-family:inherit
+}
+
+.sr-only {
+position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0
+}
+
+.container {
+max-width:1320px;margin-inline:auto;padding-inline:clamp(1rem,4vw,2rem)
+}
+
+.container--narrow {
+max-width:860px;margin-inline:auto;padding-inline:clamp(1rem,4vw,2rem)
+}
+
+/* ══════════════════════════════════════════════════
+   NAVBAR — dark pill 1880×108, border-radius 20px
+══════════════════════════════════════════════════ */
+
+.navbar-header {
+padding:14px 16px;width:100%
+}
+
+.navbar-container {
+position:relative;border-radius:20px;
+}
+
+.navbar-bg {
+position:absolute;inset:0;background:#131020;border-radius:20px
+}
+
+.navbar-bg-image {
+position:absolute;inset:0;opacity:.45;overflow:hidden
+}
+
+.navbar-bg-img {
+width:100%;height:100%;object-fit:cover;pointer-events:none
+}
+
+.navbar-content {
+position:relative;display:flex;align-items:center;justify-content:space-between;padding:18px 32px;gap:24px
+}
+
+.navbar-logo {
+text-decoration:none;flex-shrink:0
+}
+
+.navbar-logo img {
+height:50px;width:auto;object-fit:contain
+}
+
+.navbar-nav-desktop {
+display:flex;align-items:center;gap:36px
+}
+
+/* DM Sans 600 16px white */
+
+.navbar-link {
+font-family:'DM Sans',sans-serif;font-weight:600;font-size:16px;line-height:21px;color:#fff;text-decoration:none;cursor:pointer;transition:color .2s;background:none;border:none;padding:0;display:flex;align-items:center;gap:5px
+}
+
+.navbar-link:hover,.navbar-link.active {
+color:#D6EB31
+}
+
+.navbar-auth-desktop {
+display:flex;align-items:center;gap:16px
+}
+
+/* Sign In btn — #D6EB31, 132×50, border-radius 50px */
+
+.navbar-btn-primary {
+font-family:'DM Sans',sans-serif;display:inline-flex;align-items:center;gap:8px;background:#D6EB31;color:#27252F;border-radius:50px;padding:0 24px;height:50px;text-decoration:none;border:none;cursor:pointer;transition:background .2s;font-weight:600;font-size:16px;line-height:21px;white-space:nowrap
+}
+
+.navbar-btn-primary:hover {
+background:#c5d91f
+}
+
+/* "Become a member" plain white */
+
+.navbar-link-plain {
+font-family:'DM Sans',sans-serif;font-weight:600;font-size:16px;line-height:21px;color:#fff;background:none;border:none;cursor:pointer;padding:0;transition:color .2s;white-space:nowrap
+}
+
+.navbar-link-plain:hover {
+color:#D6EB31
+}
+
+/* Dropdown base */
+
+.navbar-dropdown-container {
+position:relative
+}
+
+.navbar-dropdown-menu {
+position:absolute;top:calc(100% + 10px);left:0;z-index:100;min-width:192px;background:#fff;border-radius:20px;box-shadow:0 8px 24px rgba(0,0,0,.15);padding:10px 0;display:none
+}
+
+.navbar-dropdown-menu.open {
+    display: block;
+}
+
+.navbar-dropdown-account {
+right:0;left:auto
+}
+
+.navbar-dropdown-item {
+display:flex;align-items:center;gap:8px;padding:10px 20px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:16px;line-height:21px;color:#27252F;background:transparent;text-decoration:none;transition:all .15s;border:none;cursor:pointer;width:100%;text-align:left
+}
+
+.navbar-dropdown-item:hover {
+color:#D6EB31;background:#F7F7F7
+}
+
+.navbar-dropdown-signout {
+color:#E50004
+}
+
+.navbar-dropdown-signout:hover {
+color:#E50004;background:#FEF2F2
+}
+
+/* Training dropdown — lime #D6EB31, border-radius 20px, click-open */
+
+.navbar-dropdown-training {
+    background: #D6EB31;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    min-width: 160px;
+    display: none;
+    background-color: #D6EB31;
+}
+
+.navbar-dropdown-training.open {
+    display: block;
+}
+
+.navbar-dropdown-training .navbar-dropdown-item {
+    color: #27252F;
+    font-weight: 600;
+}
+
+.navbar-dropdown-training .navbar-dropdown-item:hover {
+    background: rgba(0,0,0,.07);
+    color: #27252F;
+    background-color: rgba(0,0,0,0.06);
+}
+
+.navbar-dropdown-toggle {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Mobile */
+
+.navbar-mobile-toggle {
+background:none;border:none;cursor:pointer;color:#fff;padding:4px;display:none
+}
+
+.navbar-mobile-toggle svg {
+width:24px;height:24px
+}
+
+.navbar-mobile-menu {
+position:relative;border-top:1px solid rgba(255,255,255,.1);padding:16px 24px;display:none;flex-direction:column;gap:16px
+}
+
+.navbar-mobile-link {
+font-family:'DM Sans',sans-serif;font-weight:600;font-size:16px;color:#fff;text-decoration:none;display:flex;align-items:center;gap:4px;background:none;border:none;cursor:pointer;padding:0
+}
+
+.navbar-mobile-link:hover,.navbar-mobile-link.active {
+color:#D6EB31
+}
+
+.navbar-mobile-auth {
+border-top:1px solid rgba(255,255,255,.1);padding-top:12px;display:flex;flex-direction:column;gap:12px
+}
+
+@media(max-width:1023px){.navbar-nav-desktop,.navbar-auth-desktop{display:none}.navbar-mobile-toggle{display:block}.navbar-mobile-menu.open{display:flex}}
+
+@media(min-width:1024px){.navbar-mobile-toggle,.navbar-mobile-menu{display:none!important}}
+
+/* ══════════════════════════════════════════════════
+   FOOTER — dark 1320×600, border-radius 20px
+══════════════════════════════════════════════════ */
+
+.footer-wrapper {
+padding:0 16px 16px
+}
+
+.footer-container {
+position:relative;border-radius:20px;overflow:hidden;min-height:520px
+}
+
+.footer-bg {
+position:absolute;inset:0;background:#131020;border-radius:20px
+}
+
+.footer-bg-image {
+position:absolute;inset:0;opacity:.4;overflow:hidden
+}
+
+.footer-bg-img {
+width:100%;height:100%;object-fit:cover;pointer-events:none
+}
+
+.footer-content {
+position:relative;padding:56px 63px 40px
+}
+
+/* top: logotype left | tagline right */
+
+.footer-top {
+display:flex;justify-content:space-between;align-items:flex-start;gap:24px;padding-bottom:40px
+}
+
+.footer-logo {
+height:50px;width:auto;object-fit:contain
+}
+
+/* Poppins 500 28px line-height 42px, right-aligned */
+
+.footer-tagline {
+font-family:'Poppins',sans-serif;font-weight:500;font-size:28px;line-height:42px;color:#fff;max-width:634px;text-align:right
+}
+
+.footer-divider {
+border:none;border-top:1px solid rgba(214,235,49,.2);margin-bottom:40px
+}
+
+/* 2-column: Our Location left | Hours right */
+
+.footer-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+}
+
+/* Poppins 600 16px */
+
+.footer-column-title {
+font-family:'Poppins',sans-serif;font-weight:600;font-size:16px;line-height:24px;color:#fff;margin-bottom:12px
+}
+
+/* DM Sans 400 16px line-height 21px */
+
+.footer-column-text {
+font-family:'DM Sans',sans-serif;font-size:16px;line-height:21px;color:rgba(255,255,255,.85);margin-bottom:16px
+}
+
+/* map 161×80px */
+
+.footer-map-wrapper {
+width:161px;height:80px;margin-bottom:12px;border-radius:8px;overflow:hidden
+}
+
+.footer-map {
+width:100%;height:100%;object-fit:cover
+}
+
+/* DM Sans 400 14px address */
+
+.footer-column-address {
+font-family:'DM Sans',sans-serif;font-size:14px;line-height:18px;color:rgba(255,255,255,.75)
+}
+
+.footer-column-right {
+text-align:right
+}
+
+.footer-hours-group {
+margin-bottom:32px
+}
+
+/* DM Sans 400 16px line-height 30px */
+
+.footer-column-hours {
+font-family:'DM Sans',sans-serif;font-size:16px;line-height:30px;color:rgba(255,255,255,.85)
+}
+
+.footer-bottom {
+border-top:1px solid rgba(214,235,49,.2);margin-top:40px;padding-top:24px;text-align:center
+}
+
+/* DM Sans 400 16px © */
+
+.footer-copyright {
+font-family:'DM Sans',sans-serif;font-size:16px;line-height:21px;color:rgba(255,255,255,.85);text-align:center
+}
+
+@media(max-width:767px){.footer-content{padding:32px 20px 24px}.footer-top{flex-direction:column}.footer-tagline{text-align:left;font-size:20px;line-height:30px}.footer-columns{grid-template-columns:1fr}.footer-column-right{text-align:left}}
+
+/* ══════════════════════════════════════════════════
+   HOME
+══════════════════════════════════════════════════ */
+
+/* Hero — dark 1880×855, border-radius 20px */
+
+.home-hero {
+padding:0 16px 16px
+}
+
+.home-hero-container {
+position:relative;border-radius:20px;overflow:hidden;min-height:720px
+}
+
+.home-hero-bg {
+position:absolute;inset:0;background:#131020
+}
+
+.home-hero-bg-image {
+position:absolute;inset:0;opacity:.45;overflow:hidden
+}
+
+.home-hero-bg-image img {
+width:100%;height:100%;object-fit:cover;pointer-events:none
+}
+
+/* horizontal line at top of hero content area */
+
+.home-hero-top-line {
+position:absolute;left:0;right:0;height:1px;background:rgba(214,235,49,.2)
+}
+
+.home-hero-content {
+position:relative;display:flex;align-items:center;justify-content:center;padding:48px clamp(40px,8vw,120px) 64px;;gap:48px;min-height:720px
+}
+
+.home-hero-text {
+flex:1;max-width:623px;padding-top:60px
+}
+
+/* badge pill — #27252F bg, border-radius 50px */
+
+.home-hero-badge {
+display:inline-flex;align-items:center;gap:8px;background:#27252F;border-radius:50px;padding:6px 14px;margin-bottom:24px
+}
+
+.home-hero-badge-dot {
+width:5px;height:5px;background:#D6EB31;border-radius:50%;flex-shrink:0
+}
+
+.home-hero-badge-text {
+font-family:'DM Sans',sans-serif;font-weight:600;font-size:14px;line-height:18px;color:#fff
+}
+
+/* Poppins 700 54px line-height 65px */
+
+.home-hero-title {
+font-family:'Poppins',sans-serif;font-weight:700;font-size:clamp(2.2rem,4vw,3.375rem);line-height:1.2;color:#fff;margin-bottom:24px;max-width:563px
+}
+
+/* DM Sans 600 16px */
+
+.home-hero-description {
+font-family:'DM Sans',sans-serif;font-weight:600;font-size:16px;line-height:21px;color:rgba(255,255,255,.85);margin-bottom:32px;max-width:600px
+}
+
+/* 2×2 bullet grid */
+
+.home-hero-features {
+display:grid;grid-template-columns:1fr 1fr;gap:16px 32px;margin-bottom:32px
+}
+
+.home-hero-feature {
+display:flex;align-items:center;gap:10px
+}
+
+.home-hero-feature-icon {
+width:16px;height:16px;color:#D6EB31;flex-shrink:0
+}
+
+.home-hero-feature-text {
+font-family:'DM Sans',sans-serif;font-weight:600;font-size:16px;line-height:21px;color:#fff
+}
+
+/* horizontal-line rgba(D6EB31,0.2) */
+
+.home-hero-divider {
+border:none;border-top:1px solid rgba(214,235,49,.2);margin-bottom:32px
+}
+
+/* CTA btn 168×50 #D6EB31 border-radius 50px */
+
+.home-yellow-btn {
+display:inline-flex;align-items:center;gap:10px;background:#D6EB31;color:#27252F;border-radius:50px;padding:0 28px;height:50px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:16px;line-height:21px;text-decoration:none;border:none;cursor:pointer;transition:background .2s;white-space:nowrap
+}
+
+.home-yellow-btn:hover {
+background:#c5d91f
+}
+
+.home-yellow-btn svg {
+width:14px;height:14px
+}
+
+/* Hero image right — 586×702px */
+
+.home-hero-image {
+flex-shrink:0;max-width:520px;display:flex;align-items:flex-end;height:100%;
+}
+
+    .home-hero-image img {
+        width: 100%;height: auto;object-fit: contain;transform: translateY(66px);filter: drop-shadow(0 20px 40px rgba(0,0,0,.4));
+    }
+
+/* Partners bar — #D6EB31 1880×120 border-radius 20px */
+
+.home-partners {
+padding:0 16px 16px
+}
+
+.home-partners-container {
+    background: #D6EB31;
+    border-radius: 20px;
+    padding: 28px 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+}
+
+.home-partners-logos {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    flex-wrap: wrap;
+}
+
+.home-partners-logo {
+    height: 28px;
+    width: auto;
+    object-fit: contain;
+}
+
+/* "Modern Equipment" Poppins 700 48px right */
+
+.home-partners-text {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 2.25rem;
+    line-height: 65px;
+    color: #27252F;
+    text-align: right;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* About Us — 2-col: images left, text right */
+
+.home-about {
+padding:64px 16px
+}
+
+.home-about-container {
+max-width:1320px;margin:0 auto;display:grid;grid-template-columns:600px 1fr;gap:64px;align-items:center
+}
+
+.home-about-images {
+    position: relative;
+    display: grid;
+    gap: 16px;
+    height: 587px;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+}
+
+.home-about-img-tall {
+width:245px;height:587px;border-radius:20px;object-fit:cover;flex-shrink:0;margin-top:-50px
+}
+
+.home-about-img-short {
+width:320px;height:587px;border-radius:20px;object-fit:cover;flex-shrink:0
+}
+
+.home-about-text {
+
+}
+
+/* badge */
+
+.home-about-badge {
+display:inline-flex;align-items:center;gap:8px;background:#27252F;border-radius:50px;padding:6px 14px;margin-bottom:16px
+}
+
+.home-about-badge-dot {
+    width: 6px;
+    height: 6px;
+    background: #D6EB31;
+    border-radius: 50%;
+    background-color: #D6EB31;
+    flex-shrink: 0;
+}
+
+.home-about-badge-text {
+font-family:'DM Sans',sans-serif;font-weight:600;font-size:14px;line-height:18px;color:#fff
+}
+
+/* Poppins 500 48px line-height 60px */
+
+.home-about-title {
+font-family:'Poppins',sans-serif;font-weight:500;font-size:clamp(1.8rem,3vw,3rem);line-height:1.25;color:#27252F;margin-bottom:24px;max-width:611px
+}
+
+/* DM Sans 400 16px #575757 */
+
+.home-about-description {
+font-family:'DM Sans',sans-serif;font-size:16px;line-height:21px;color:#575757;margin-bottom:24px;max-width:616px
+}
+
+/* mission box — white bg, border-radius 20px */
+
+.home-about-mission {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px 24px;
+    position: relative;
+    background-color: #ffffff;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: #6F6F6F;
+    line-height: 1.7;
+    margin-top: 8px;
+}
+
+.home-about-mission-text {
+font-family:'DM Sans',sans-serif;font-weight:700;font-size:16px;line-height:21px;color:#000;max-width:533px
+}
+
+/* Programs — white bg section, 3 cards 400×400 */
+
+.home-programs {
+padding:0 16px 64px
+}
+
+.home-programs-inner {
+background:#fff;border-radius:20px;padding:64px 80px
+}
+
+.home-programs-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+/* section badge */
+
+.home-section-badge {
+display:inline-flex;align-items:center;gap:8px;background:#27252F;border-radius:50px;padding:6px 14px;margin-bottom:16px
+}
+
+.home-section-badge-dot {
+width:5px;height:5px;background:#D6EB31;border-radius:50%
+}
+
+.home-section-badge-text {
+font-family:'DM Sans',sans-serif;font-weight:600;font-size:14px;line-height:18px;color:#fff
+}
+
+/* Poppins 500 48px */
+
+.home-programs-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.5rem,4vw,2.25rem);
+    line-height: 1.35;
+    color: #27252F;
+    max-width: 723px;
+    margin: 0 auto;
+    margin-top: 8px;
+}
+
+.home-programs-grid {
+display:grid;grid-template-columns:repeat(3,1fr);gap:32px
+}
+
+.home-program-card {
+border-radius:20px;overflow:hidden;height:400px;position:relative;cursor:pointer
+}
+
+.home-program-card-image {
+width:100%;height:100%;object-fit:cover;transition:transform .35s
+}
+
+.home-program-card:hover .home-program-card-image {
+transform:scale(1.04)
+}
+
+.home-program-card-overlay {
+position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.55),transparent 60%)
+}
+
+.home-program-card-title {
+position:absolute;bottom:20px;left:20px;font-family:'Poppins',sans-serif;font-weight:600;font-size:18px;color:#fff
+}
+
+/* Store — 4 products 295×295 */
+
+.home-store {
+padding:0 16px 64px
+}
+
+.home-store-header {
+text-align:center;margin-bottom:48px
+}
+
+.home-store-title {
+font-family:'Poppins',sans-serif;font-weight:500;font-size:clamp(1.8rem,3vw,3rem);line-height:1.35;color:#27252F;max-width:692px;margin:0 auto
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+}
+
+/* 2. Tablet mode: Drop to 2 columns */
+@media (max-width: 1024px) {
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* 3. Phone mode: Drop to 1 column so nothing gets squished */
+@media (max-width: 640px) {
+    .products-grid {
+        grid-template-columns: 1fr;
+    }
+}
+/* white wrapper card */
+
+.home-products-wrapper {
+    background: #fff;
+    border-radius: 16px;
+    padding: 32px;
+    background-color: #ffffff;
+    margin-bottom: 16px;
+}
+
+.home-products-grid {
+display:grid;grid-template-columns:repeat(4,1fr);gap:24px
+}
+
+.home-product-card {
+    border-radius: 20px;
+    overflow: hidden;
+    aspect-ratio: 1;
+    background: #F7F7F7;
+}
+
+.home-product-card img {
+width:100%;height:100%;object-fit:cover;transition:transform .3s
+}
+
+.home-product-card:hover img {
+transform:scale(1.04)
+}
+
+@media(max-width:1200px){.home-hero-content{padding:48px 40px 64px}.home-partners-container{padding:24px 40px}.home-about-container{grid-template-columns:1fr}.home-about-images{height:400px}.home-about-img-tall,.home-about-img-short{height:400px}}
+
+@media(max-width:768px){.home-hero-content{flex-direction:column;padding:32px 20px;min-height:auto}.home-hero-features{grid-template-columns:1fr;gap:10px}.home-programs-grid{grid-template-columns:1fr}.home-products-grid{grid-template-columns:repeat(2,1fr)}.home-partners-container{flex-direction:column}.home-partners-text{text-align:left}}
+
+/* ══════════════════════════════════════════════════
+   AUTH PAGES — white card 860px, border-radius 20px
+   SignIn 943px | SignUp 828px | SetPassword 723px
+══════════════════════════════════════════════════ */
+
+.auth-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 16px;
+    background-color: #F7F7F7;
+}
+
+.auth-card {
+    background: #fff;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 720px;
+    padding: 48px;
+    background-color: #ffffff;
+}
+
+/* Poppins 500 56px line-height 65px */
+
+.auth-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: clamp(2rem, 5vw, 3rem);
+    line-height: 1.2;
+    color: #000000;
+    margin-bottom: 16px;
+}
+
+/* DM Sans 400 16px #6F6F6F */
+
+.auth-description {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    color: #6F6F6F;
+    margin-bottom: 24px;
+    max-width: 730px;
+}
+
+.auth-divider {
+    border: none;
+    border-top: 1px solid #E6E6E6;
+    margin-bottom: 32px;
+}
+
+/* social circles 60×60px, 1px solid #A7A7A7 */
+
+.auth-social {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.auth-social-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid #A7A7A7;
+    text-decoration: none;
+    transition: all 0.2s;
+    color: #27252F;
+    background-color: #ffffff;
+    cursor: pointer;
+}
+
+.auth-social-btn:hover {
+    border-color: #D6EB31;
+    background: #F7F7F7;
+    background-color: #F7F7F7;
+}
+
+.auth-social-btn img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}
+
+/* OR divider */
+
+.auth-or-divider {
+    display: flex;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.auth-or-line {
+    flex: 1;
+    border-top: 1px solid #E6E6E6;
+}
+
+.auth-or-text {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    line-height: 21px;
+    color: #6F6F6F;
+    padding: 0 16px;
+    white-space: nowrap;
+    background: #fff;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.auth-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.auth-form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Poppins 600 14px label */
+
+.auth-label {
+    display: block;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1;
+    color: #27252F;
+    margin-bottom: 8px;
+    margin-top: 16px;
+}
+
+.auth-label-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 16px;
+    margin-bottom: 8px;
+}
+
+/* Poppins 600 12px #D6EB31 forgot */
+
+.auth-forgot-link {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    color: #D6EB31;
+    text-decoration: none;
+}
+
+.auth-forgot-link:hover {
+    text-decoration: underline;
+}
+
+/* input — #F7F7F7 bg, border-radius 10px, 58px tall */
+
+.auth-input {
+    width: 100%;
+    height: 58px;
+    background: #F7F7F7;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    padding: 0 20px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 21px;
+    color: #27252F;
+    outline: none;
+    transition: border-color 0.2s;
+    background-color: #F7F7F7;
+    box-sizing: border-box;
+}
+
+.auth-input:focus {
+    border-color: #D6EB31;
+    background: #fff;
+}
+
+.auth-input::placeholder {
+    color: #A7A7A7;
+}
+
+.auth-input[readonly] {
+opacity:.7;cursor:default
+}
+
+/* password toggle */
+
+.auth-password-wrapper {
+    position: relative;
+}
+
+.auth-password-toggle {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #A7A7A7;
+    padding: 0;
+    transition: color .2s;
+    display: flex;
+    align-items: center;
+}
+
+.auth-password-toggle:hover {
+    color: #27252F;
+}
+
+.auth-password-toggle svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* checkbox — #F7F7F7 bg, 30×30px, border-radius 10px */
+
+.auth-checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    cursor: pointer;
+    user-select: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #27252F;
+    margin-top: 20px;
+}
+
+.auth-checkbox-label input[type=checkbox] {
+display:none
+}
+
+.auth-checkbox-custom {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    border-radius: 6px;
+    background: #F7F7F7;
+    border: 2px solid #E6E6E6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    background-color: #F7F7F7;
+    margin-top: 2px;
+}
+
+.auth-checkbox-label input:checked~.auth-checkbox-custom {
+border-color:#D6EB31;background:#D6EB31
+}
+
+.auth-checkbox-link {
+    color: #D6EB31;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.auth-checkbox-link:hover {
+    text-decoration: underline;
+}
+
+/* submit btn — 556×50 #D6EB31 border-radius 50px */
+
+.auth-submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    height: 50px;
+    background: #D6EB31;
+    color: #27252F;
+    border-radius: 9999px;
+    border: none;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 21px;
+    text-align: center;
+    transition: background-color 0.2s;
+    margin-top: 28px;
+    background-color: #D6EB31;
+}
+
+.auth-submit:hover:not(:disabled) {
+    background: #c5d82c;
+    background-color: #c5d82c;
+}
+
+.auth-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* DM Sans 400 16px #6F6F6F footer */
+
+.auth-footer {
+    text-align: center;
+    margin-top: 24px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    line-height: 21px;
+    color: #6F6F6F;
+}
+
+.auth-link {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    color: #D6EB31;
+    text-decoration: none;
+}
+
+.auth-link:hover {
+    text-decoration: underline;
+}
+
+/* Validation */
+
+.validation-summary {
+    background: #FEF2F2;
+    border: 1px solid #FECACA;
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    background-color: #FEF2F2;
+}
+
+.validation-summary__title {
+font-family:'DM Sans',sans-serif;font-weight:700;font-size:14px;color:#B91C1C;margin-bottom:8px
+}
+
+.validation-summary__list {
+list-style:disc;padding-left:20px;font-family:'DM Sans',sans-serif;font-size:14px;color:#B91C1C;line-height:1.8
+}
+
+@media(max-width:767px){.auth-card{padding:32px 20px}.auth-title{font-size:2rem;line-height:1.2}.auth-form-row{grid-template-columns:1fr}}
+
+/* ══════════════════════════════════════════════════
+   MY ACCOUNT — sidebar 404px + main 860px
+══════════════════════════════════════════════════ */
+
+.account-page-new {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 32px 0;
+    background: #F7F7F7;
+    min-height: 100vh;
+}
+
+/* Poppins 500 48px centered */
+
+.account-page-heading {
+font-family:'Poppins',sans-serif;font-weight:500;font-size:clamp(2rem,4vw,3rem);line-height:65px;color:#27252F;text-align:center;margin-bottom:32px
+}
+
+.account-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 24px;
+    align-items: start;
+}
+
+.account-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* trainer img 404×440 border-radius 20px */
+
+.account-avatar-card {
+border-radius:20px;overflow:hidden;height:440px
+}
+
+.account-avatar-card img {
+width:100%;height:100%;object-fit:cover
+}
+
+/* menu card — white, border-radius 20px */
+
+.account-menu-card {
+background:#fff;border-radius:20px;overflow:hidden
+}
+
+/* lime header #D6EB31, 68px tall, border-radius 20px 20px 0 0 */
+
+.account-menu-header {
+    background: #D6EB31;
+    padding: 14px 20px;
+    height: 68px;
+    display: flex;
+    align-items: center;
+    border-radius: 20px 20px 0 0;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: #27252F;
+}
+
+.account-menu-title {
+font-family:'Poppins',sans-serif;font-weight:600;font-size:16px;line-height:65px;color:#27252F
+}
+
+.account-menu-list {
+padding:0 32px
+}
+
+.account-menu-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 65px;
+    border-bottom: 1px solid #F5F5F5;
+    text-decoration: none;
+    cursor: pointer;
+    background: none;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    width: 100%;
+    padding: 14px 20px;
+    transition: background 0.15s;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    color: #27252F;
+}
+
+.account-menu-item:last-child {
+border-bottom:none
+}
+
+/* Poppins 600 16px */
+
+.account-menu-item-text {
+font-family:'Poppins',sans-serif;font-weight:600;font-size:16px;line-height:65px;color:#27252F
+}
+
+.account-menu-item.active .account-menu-item-text {
+color:#D6EB31
+}
+
+.account-menu-item.active .account-menu-item-arrow {
+color:#D6EB31
+}
+
+.account-menu-item:hover .account-menu-item-text {
+color:#D6EB31
+}
+
+.account-menu-item-arrow {
+color:#27252F
+}
+
+/* Remove Account — Poppins 600 14px #E50004 */
+
+.account-menu-remove {
+display:block;padding:12px 32px;font-family:'Poppins',sans-serif;font-weight:600;font-size:14px;color:#E50004;text-decoration:none;border:none;background:none;cursor:pointer;text-align:left;width:100%
+}
+
+.account-menu-remove-note {
+font-family:'Poppins',sans-serif;font-size:10px;color:#27252F;padding:0 32px 8px
+}
+
+/* form card — white 860×943, border-radius 20px */
+
+.account-form-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 36px;
+    margin-bottom: 24px;
+}
+
+/* "About Me" Poppins 500 56px */
+
+.account-form-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 2rem;
+    line-height: 65px;
+    color: #27252F;
+    margin-bottom: 12px;
+}
+
+.account-form-divider {
+    border: none;
+    border-top: 1px solid #E6E6E6;
+    margin-bottom: 28px;
+}
+
+.account-file-input-wrapper {
+position:relative
+}
+
+.account-file-browse {
+position:absolute;right:12px;top:50%;transform:translateY(-50%);background:#D9D9D9;border-radius:10px;padding:0 16px;height:44px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:16px;color:#27252F;border:none;cursor:pointer
+}
+
+/* Save btn 110×50 lime */
+
+.account-save-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #D6EB31;
+    color: #27252F;
+    border-radius: 9999px;
+    border: none;
+    cursor: pointer;
+    padding: 12px 28px;
+    height: 50px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    transition: background-color 0.2s;
+    margin-top: 28px;
+    align-self: flex-start;
+    background-color: #D6EB31;
+}
+
+.account-save-btn:hover {
+    background: #c5d82c;
+    background-color: #c5d82c;
+}
+
+/* statistics */
+
+.account-stats-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 36px;
+    margin-top: 24px;
+}
+
+/* Poppins 500 48px */
+
+.account-stats-title {
+font-family:'Poppins',sans-serif;font-weight:500;font-size:clamp(1.8rem,3vw,3rem);line-height:65px;color:#000;margin-bottom:16px
+}
+
+.account-stat-item {
+    margin-bottom: 24px;
+}
+
+.account-stat-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 65px;
+    margin-bottom: 8px;
+}
+
+/* Poppins 500 20px */
+
+.account-stat-label {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 65px;
+    color: #27252F;
+}
+
+.account-stat-value {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 65px;
+    color: #27252F;
+}
+
+/* bar — #F7F7F7 bg, #D6EB31 fill, 10px, border-radius 50px */
+
+.account-stat-bar-bg {
+width:100%;height:10px;background:#F7F7F7;border-radius:50px;overflow:hidden
+}
+
+.account-stat-bar-fill {
+height:100%;background:#D6EB31;border-radius:50px;transition:width .5s ease
+}
+
+@media(max-width:1100px){.account-layout{grid-template-columns:1fr}.account-avatar-card{height:300px;max-width:404px}}
+
+/* ══════════════════════════════════════════════════
+   MEMBERSHIPS — 3-col: 2 plans + 1 CTA, 404×612 each
+══════════════════════════════════════════════════ */
+
+.memberships-page {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 48px 16px;
+    background-color: #F7F7F7;
+    min-height: 100vh;
+}
+
+/* Poppins 500 48px centered */
+
+.memberships-header {
+    text-align: center;
+    margin-bottom: 48px;
+}
+
+.memberships-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: clamp(2rem, 5vw, 3rem);
+    line-height: 65px;
+    color: #27252F;
+    margin: 0 0 8px 0;
+}
+
+/* 3-col grid */
+
+.memberships-cards-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 300px;
+    gap: 24px;
+    margin-bottom: 32px;
+    align-items: start;
+}
+
+/* white plan card, border-radius 20px */
+
+.memberships-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    background-color: #ffffff;
+    gap: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    transition: all 0.2s;
+}
+
+/* icon Ellipse #D6EB31 50×50 */
+
+.memberships-card-icon {
+    width: 44px;
+    height: 44px;
+    background: #D6EB31;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    flex-shrink: 0;
+    color: #27252F;
+}
+
+.memberships-card-icon svg {
+width:24px;height:24px;color:#000
+}
+
+/* Poppins 600 18px plan name */
+
+.memberships-plan-name {
+font-family:'Poppins',sans-serif;font-weight:600;font-size:18px;line-height:27px;color:#080517;margin-bottom:12px
+}
+
+.memberships-plan-divider {
+border:none;border-top:1px solid #E6E6E6;margin-bottom:16px
+}
+
+/* DM Sans 400 16px #6F6F6F */
+
+.memberships-plan-desc {
+font-family:'DM Sans',sans-serif;font-size:16px;line-height:21px;color:#6F6F6F;margin-bottom:20px
+}
+
+.memberships-features {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1;
+    list-style: none;
+    padding: 0;
+}
+
+.memberships-feature {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: #6F6F6F;
+}
+
+.memberships-feature-check {
+width:16px;height:16px;flex-shrink:0;background:#D6EB31;border-radius:50%;display:flex;align-items:center;justify-content:center
+}
+
+.memberships-feature-check svg {
+width:8px;height:8px;color:#fff
+}
+
+.memberships-feature-text {
+font-family:'DM Sans',sans-serif;font-size:16px;line-height:21px;color:#6F6F6F
+}
+
+/* dark box #080517, border-radius 20px */
+
+.memberships-card-dark {
+background:#080517;border-radius:20px;padding:20px;margin-top:24px
+}
+
+.memberships-dark-divider {
+border:none;border-top:1px solid #27252F;margin-bottom:12px
+}
+
+/* Poppins 700 24px price */
+
+.memberships-price {
+    font-family: 'Poppins',sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 36px;
+    color: #fff;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    margin: 4px 0 0;
+}
+
+/* DM Sans 500 16px */
+
+.memberships-price-note {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 21px;
+    color: #A7A7A7;
+    margin-bottom: 16px;
+    margin: 0;
+}
+
+.memberships-dark-row {
+display:flex;align-items:center;justify-content:space-between;gap:12px
+}
+
+.memberships-trial-note {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    line-height: 21px;
+    color: #A7A7A7;
+    text-align: center;
+}
+
+/* Join Now btn 135×50 #D6EB31 */
+
+.memberships-join-btn {
+display:inline-flex;align-items:center;gap:8px;background:#D6EB31;color:#27252F;border-radius:50px;border:none;cursor:pointer;padding:0 20px;height:50px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:16px;text-decoration:none;white-space:nowrap;transition:background .2s;flex-shrink:0
+}
+
+.memberships-join-btn:hover {
+background:#c5d91f
+}
+
+/* CTA card — #080517, border-radius 20px */
+
+.memberships-cta-card {
+    background: #27252F;
+    border-radius: 16px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    color: #ffffff;
+    gap: 12px;
+}
+
+.memberships-cta-card-image {
+position:absolute;bottom:0;right:0;width:260px;height:307px;object-fit:contain;pointer-events:none
+}
+
+/* Poppins 600 18px white centered */
+
+.memberships-cta-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 27px;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 12px;
+    position: relative;
+}
+
+.memberships-cta-desc {
+font-family:'DM Sans',sans-serif;font-size:16px;line-height:21px;color:#fff;text-align:center;margin-bottom:16px;position:relative
+}
+
+.memberships-cta-divider {
+border:none;border-top:1px solid #27252F;margin-bottom:16px;position:relative
+}
+
+/* Poppins 800 20px white */
+
+.memberships-cta-phone {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 30px;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+/* Call btn 175×50 #D6EB31 */
+
+.memberships-call-btn {
+display:inline-flex;align-items:center;gap:8px;background:#D6EB31;color:#27252F;border-radius:50px;border:none;cursor:pointer;padding:0 24px;height:50px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:16px;text-decoration:none;white-space:nowrap;transition:background .2s;position:relative
+}
+
+.memberships-call-btn:hover {
+background:#c5d91f
+}
+
+/* trust badges */
+
+.memberships-trust {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+    margin-bottom: 48px;
+    padding: 24px 0;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: #6F6F6F;
+}
+
+.memberships-trust-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'DM Sans',sans-serif;
+    font-size: 16px;
+    line-height: 21px;
+    color: #000;
+}
+
+.memberships-trust-icon {
+color:#D6EB31;font-size:20px
+}
+
+/* FAQ — image left 630×748, accordion right */
+
+.memberships-faq-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+    margin-bottom: 48px;
+}
+
+.memberships-faq-image {
+width:100%;height:748px;border-radius:20px;object-fit:cover
+}
+
+.memberships-faq-badge {
+display:inline-flex;align-items:center;gap:8px;background:#27252F;border-radius:50px;padding:6px 14px;margin-bottom:16px
+}
+
+.memberships-faq-badge-dot {
+width:5px;height:5px;background:#D6EB31;border-radius:50%
+}
+
+.memberships-faq-badge-text {
+font-family:'DM Sans',sans-serif;font-weight:600;font-size:14px;color:#fff
+}
+
+/* Poppins 500 48px */
+
+.memberships-faq-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 2rem;
+    line-height: 1.35;
+    color: #27252F;
+    margin-bottom: 32px;
+    max-width: 636px;
+    text-align: center;
+}
+
+/* accordion item */
+
+.faq-item {
+    border-bottom: 1px solid #E6E6E6;
+    border-top: 1px solid #E6E6E6;
+}
+
+.faq-item:last-child {
+    border-bottom: 1px solid #E6E6E6;
+}
+
+.faq-question {
+display:flex;align-items:center;justify-content:space-between;height:65px;cursor:pointer;gap:16px;background:none;border:none;width:100%;padding:0;text-align:left
+}
+
+/* Poppins 600 18px */
+
+.faq-question-text {
+font-family:'Poppins',sans-serif;font-weight:600;font-size:18px;line-height:1.8;color:#27252F;flex:1
+}
+
+/* chevron circle — #D6EB31 30×30 */
+
+.faq-chevron {
+width:30px;height:30px;flex-shrink:0;background:#D6EB31;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#080517;transition:transform .25s
+}
+
+.faq-chevron svg {
+width:14px;height:14px
+}
+
+.faq-item.open .faq-chevron {
+transform:rotate(180deg)
+}
+
+.faq-answer {
+display:none;padding-bottom:20px
+}
+
+.faq-item.open .faq-answer {
+display:block
+}
+
+/* DM Sans 400 16px #6F6F6F */
+
+.faq-answer-text {
+font-family:'DM Sans',sans-serif;font-size:16px;line-height:21px;color:#6F6F6F;margin-bottom:12px
+}
+
+.faq-answer-list {
+list-style:none;display:flex;flex-direction:column;gap:8px
+}
+
+.faq-answer-list-item {
+display:flex;align-items:flex-start;gap:10px
+}
+
+.faq-answer-dot {
+width:5px;height:5px;background:#D6EB31;border-radius:50%;flex-shrink:0;margin-top:8px
+}
+
+.faq-answer-list-text {
+font-family:'DM Sans',sans-serif;font-size:16px;line-height:21px;color:#6F6F6F
+}
+
+/* misc */
+
+.memberships-popular-badge {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: #D6EB31;
+    color: #27252F;
+    border-radius: 20px;
+    padding: 3px 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    display: inline-block;
+    width: fit-content;
+}
+
+.memberships-current-badge {
+display:inline-block;background:#131020;color:#D6EB31;border-radius:50px;padding:4px 12px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;margin-bottom:12px
+}
+
+.info-banner {
+    background: #D6EB31;
+    border-radius: 12px;
+    padding: 16px 24px;
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    color: #27252F;
+    background-color: rgba(214,235,49,0.1);
+    border: 1px solid #D6EB31;
+    justify-content: space-between;
+}
+
+@media(max-width:1100px){.memberships-cards-row{grid-template-columns:1fr 1fr}.memberships-faq-section{grid-template-columns:1fr}.memberships-faq-image{height:400px}}
+
+@media(max-width:640px){.memberships-cards-row{grid-template-columns:1fr}.memberships-trust{flex-direction:column;gap:16px}}
+
+/* ══════════════════════════════════════════════════
+   CUSTOMER SERVICE — image left 610×786 + form right
+══════════════════════════════════════════════════ */
+
+.cs-page {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 48px 16px;
+    background-color: #F7F7F7;
+}
+
+/* Poppins 500 48px centered */
+
+.cs-section-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: clamp(2rem, 5vw, 3rem);
+    line-height: 65px;
+    color: #27252F;
+    text-align: center;
+    margin-bottom: 32px;
+    margin: 0 0 8px 0;
+}
+
+/* white card 1320×786, border-radius 20px */
+
+.cs-contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: #ffffff;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 64px;
+    min-height: 786px;
+    gap: 0;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+}
+
+.cs-image-panel {
+    position: relative;
+    min-height: 400px;
+}
+
+.cs-contact-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* overlay — rgba(64,64,64,0.75), backdrop-filter blur 15px, border-radius 20px */
+
+.cs-contact-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(19,16,32,0.85);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    margin: 24px;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    flex-wrap: wrap;
+}
+
+.cs-contact-info-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* #D6EB31 circle 50×50 */
+
+.cs-contact-info-icon {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    background: rgba(214,235,49,0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #D6EB31;
+    border: 1px solid #D6EB31;
+}
+
+.cs-contact-info-icon svg {
+width:24px;height:24px
+}
+
+/* Poppins 600 18-20px white */
+
+.cs-contact-info-label {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 11px;
+    line-height: 25px;
+    color: rgba(255,255,255,0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.cs-contact-info-value {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 25px;
+    color: #ffffff;
+}
+
+.cs-form-panel {
+    padding: 36px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Poppins 600 28px */
+
+.cs-form-heading {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    line-height: 65px;
+    color: #27252F;
+    margin-bottom: 8px;
+}
+
+/* DM Sans 400 16px #6F6F6F */
+
+.cs-form-sub {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #6F6F6F;
+    margin-bottom: 24px;
+    max-width: 534px;
+}
+
+.cs-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.cs-form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Poppins 600 14px */
+
+.cs-label {
+font-family:'Poppins',sans-serif;font-weight:600;font-size:14px;line-height:65px;color:#27252F
+}
+
+/* input — #F7F7F7 border-radius 10px 58px */
+
+.cs-input {
+width:100%;height:58px;background:#F7F7F7;border:1px solid transparent;border-radius:10px;padding:0 20px;font-family:'DM Sans',sans-serif;font-size:16px;color:#27252F;outline:none;transition:border-color .2s
+}
+
+.cs-input:focus {
+border-color:#D6EB31;background:#fff
+}
+
+.cs-input::placeholder {
+color:#A7A7A7
+}
+
+/* textarea 157px */
+
+.cs-textarea {
+width:100%;background:#F7F7F7;border:1px solid transparent;border-radius:10px;padding:16px 20px;font-family:'DM Sans',sans-serif;font-size:16px;color:#27252F;outline:none;transition:border-color .2s;resize:vertical;min-height:157px
+}
+
+.cs-textarea:focus {
+border-color:#D6EB31;background:#fff
+}
+
+.cs-textarea::placeholder {
+color:#A7A7A7
+}
+
+/* Submit btn 199×50 #D6EB31 */
+
+.cs-submit-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #D6EB31;
+    color: #27252F;
+    border-radius: 9999px;
+    border: none;
+    cursor: pointer;
+    padding: 12px 28px;
+    height: 50px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    text-decoration: none;
+    transition: background-color 0.2s;
+    white-space: nowrap;
+    margin-top: 8px;
+    align-self: flex-start;
+}
+
+.cs-submit-btn:hover {
+    background: #c5d82c;
+}
+
+/* FAQ section below */
+
+.cs-faq-section {
+display:grid;grid-template-columns:630px 1fr;gap:48px;align-items:start
+}
+
+.cs-faq-image {
+width:100%;height:748px;border-radius:20px;object-fit:cover
+}
+
+@media(max-width:1100px){.cs-contact-grid{grid-template-columns:1fr}.cs-image-panel{min-height:400px}.cs-faq-section{grid-template-columns:1fr}.cs-faq-image{height:400px}}
+
+@media(max-width:640px){.cs-form-row{grid-template-columns:1fr}.cs-form-panel{padding:32px 24px}}
+
+/* ══════════════════════════════════════════════════
+   404 PAGE — image 838×345, Poppins 700 54px
+══════════════════════════════════════════════════ */
+
+.notfound-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    padding: 80px 16px;
+    text-align: center;
+    background-color: #F7F7F7;
+    background: #F7F7F7;
+}
+
+.notfound-img-wrapper {
+width:100%;max-width:838px;margin-bottom:32px
+}
+
+.notfound-img {
+width:100%;height:auto
+}
+
+.notfound-numbers {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 32px;
+}
+
+.notfound-num {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    font-size: clamp(6rem, 18vw, 12rem);
+    line-height: 1;
+    color: #27252F;
+}
+
+/* Poppins 700 54px */
+
+.notfound-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.5rem,4vw,2.5rem);
+    line-height: 65px;
+    color: #27252F;
+    margin-bottom: 8px;
+}
+
+/* DM Sans 400 16px #575757 */
+
+.notfound-sub {
+font-family:'DM Sans',sans-serif;font-size:16px;line-height:65px;color:#575757;margin-bottom:32px
+}
+
+/* btn 211×50 #D6EB31 */
+
+.notfound-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #D6EB31;
+    color: #27252F;
+    border-radius: 9999px;
+    padding: 14px 32px;
+    height: 50px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    background-color: #D6EB31;
+}
+
+.notfound-btn:hover {
+    background: #c5d82c;
+    background-color: #c5d82c;
+}
+
+/* ══════════════════════════════════════════════════
+   ADMIN + UTILITY
+══════════════════════════════════════════════════ */
+
+.admin-page {
+max-width:1320px;margin:0 auto;padding:32px 16px 64px
+}
+
+.admin-title {
+font-family:'Poppins',sans-serif;font-weight:600;font-size:2rem;color:#27252F;margin-bottom:32px
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.admin-table th {
+    background: #27252F;
+    color: #6F6F6F;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 2px solid #E6E6E6;
+}
+
+.admin-table td {
+    padding: 12px 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    border-bottom: 1px solid #F3F4F6;
+    color: #27252F;
+}
+
+.admin-table tr:last-child td {
+border-bottom:none
+}
+
+.admin-table tr:hover td {
+background:#FAFAFA
+}
+
+.admin-badge {
+display:inline-block;border-radius:50px;padding:3px 12px;font-size:12px;font-weight:600
+}
+
+.admin-badge--green {
+background:#D6EB31;color:#27252F
+}
+
+.admin-badge--red {
+background:#FEF2F2;color:#E50004
+}
+
+.admin-action-btn {
+padding:6px 16px;border-radius:8px;border:none;cursor:pointer;font-weight:600;font-size:13px;background:#F7F7F7;color:#27252F;transition:background .2s
+}
+
+.admin-action-btn:hover {
+background:#E6E6E6
+}
+
+.admin-action-btn--danger {
+background:#FEF2F2;color:#E50004
+}
+
+.admin-action-btn--danger:hover {
+background:#fee2e2
+}
+
+.memberships-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #D6EB31;
+    color: #27252F;
+    border-radius: 9999px;
+    border: none;
+    cursor: pointer;
+    padding: 10px 20px;
+    height: 44px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    transition: background-color 0.2s;
+    text-decoration: none;
+    background-color: #D6EB31;
+    justify-content: center;
+    width: 100%;
+}
+
+.memberships-button:hover {
+    background: #c5d82c;
+    background-color: #c5d82c;
+}
+
+.alert {
+    padding: 14px 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 16px;
+    margin-top: 12px;
+}
+
+.alert-success {
+background:#F0FDF4;border:1px solid #BBF7D0;color:#166534
+}
+
+.alert-error {
+background:#FEF2F2;border:1px solid #FECACA;color:#B91C1C
+}
+
+CLASSES PAGE
+═══════════════════════════════════════════════════════════════ */
+.classes-page {
+ background-color: #F7F7F7; padding: 32px 16px; 
+}
+
+.classes-header {
+ text-align: center; margin-bottom: 48px; 
+}
+
+.classes-title {
+ font-family: 'Poppins', sans-serif; font-weight: 700; font-size: clamp(2rem, 5vw, 3rem); color: #27252F; margin-bottom: 8px; 
+}
+
+.classes-subtitle {
+ font-family: 'DM Sans', sans-serif; font-size: 16px; color: #6F6F6F; 
+}
+
+.classes-filters {
+ display: flex; gap: 12px; margin-bottom: 32px; flex-wrap: wrap; 
+}
+
+.classes-filter-btn {
+
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 2px solid #E6E6E6;
+  background-color: #ffffff;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  color: #27252F;
+  cursor: pointer;
+  transition: all 0.2s;
+
+}
+
+.classes-filter-btn:hover {
+ border-color: #D6EB31; 
+}
+
+.classes-filter-btn.active {
+ background-color: #D6EB31; border-color: #D6EB31; 
+}
+
+.classes-grid {
+ display: grid; gap: 24px; margin-bottom: 48px; 
+}
+
+.classes-card {
+
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  transition: box-shadow 0.2s;
+
+}
+
+.classes-card:hover {
+ box-shadow: 0 4px 12px rgba(0,0,0,0.15); 
+}
+
+.classes-card-header {
+ display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; 
+}
+
+.classes-card-title {
+ font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 18px; color: #27252F; margin: 0; flex: 1; 
+}
+
+.classes-difficulty {
+ padding: 4px 12px; border-radius: 12px; font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 12px; white-space: nowrap; flex-shrink: 0; 
+}
+
+.classes-difficulty-beginner {
+ background-color: #ECFDF5; color: #065F46; 
+}
+
+.classes-difficulty-intermediate {
+ background-color: #FEF3C7; color: #92400E; 
+}
+
+.classes-difficulty-advanced {
+ background-color: #FEE2E2; color: #7F1D1D; 
+}
+
+.classes-card-description {
+ font-family: 'DM Sans', sans-serif; font-size: 14px; color: #6F6F6F; line-height: 1.5; 
+}
+
+.classes-card-meta {
+ display: flex; flex-direction: column; gap: 12px; padding: 16px 0; border-top: 1px solid #E6E6E6; border-bottom: 1px solid #E6E6E6; 
+}
+
+.classes-meta-row {
+ display: flex; align-items: center; gap: 8px; color: #6F6F6F; 
+}
+
+.classes-meta-icon {
+ color: #D6EB31; flex-shrink: 0; display: flex; 
+}
+
+.classes-meta-text {
+ font-family: 'DM Sans', sans-serif; font-size: 14px; 
+}
+
+.classes-card-footer {
+ display: flex; align-items: center; justify-content: space-between; gap: 12px; 
+}
+
+.classes-spots {
+ font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 14px; color: #27252F; 
+}
+
+.classes-button {
+ padding: 8px 16px; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 14px; border: none; cursor: pointer; transition: all 0.2s; text-decoration: none; display: inline-block; text-align: center; 
+}
+
+.classes-button-book {
+ background-color: #D6EB31; color: #27252F; 
+}
+
+.classes-button-book:hover:not(:disabled) {
+ background-color: #c5d82c; 
+}
+
+.classes-button-book:disabled {
+ opacity: 0.5; cursor: not-allowed; 
+}
+
+.classes-button-cancel {
+ background-color: #FEE2E2; color: #B91C1C; 
+}
+
+.classes-button-cancel:hover:not(:disabled) {
+ background-color: #FECACA; 
+}
+
+.classes-button-signin {
+ background-color: #D6EB31; color: #27252F; 
+}
+
+.classes-button-signin:hover {
+ background-color: #c5d82c; 
+}
+
+.classes-empty {
+ text-align: center; padding: 48px 16px; font-family: 'DM Sans', sans-serif; font-size: 16px; color: #6F6F6F; 
+}
+
+@media (max-width: 640px) {
+  .classes-card { padding: 16px; }
+  .classes-card-header { flex-direction: column; }
+  .classes-card-footer { flex-direction: column; align-items: stretch; }
+  .classes-button { width: 100%; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MEMBERSHIPS PAGE
+═══════════════════════════════════════════════════════════════ */
+
+.memberships-subtitle {
+ font-family: 'DM Sans', sans-serif; font-size: 16px; color: #6F6F6F; 
+}
+
+.memberships-grid {
+ display: grid; gap: 24px; 
+}
+
+.memberships-card:hover {
+ box-shadow: 0 4px 12px rgba(0,0,0,0.15); 
+}
+
+.memberships-card.highlighted {
+    border: 2px solid #D6EB31;
+    background: #27252F;
+    color: #ffffff;
+}
+
+.memberships-card-name {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: #27252F;
+    margin: 0;
+}
+
+.memberships-price-value {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    font-size: 2.5rem;
+    color: #D6EB31;
+}
+
+.memberships-price-period {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: #6F6F6F;
+}
+
+.memberships-feature svg {
+ color: #D6EB31; flex-shrink: 0; 
+}
+
+.memberships-faq {
+ background-color: #27252F; border-radius: 20px; padding: 48px; margin-top: 48px; 
+}
+
+.memberships-faq-item {
+ border-top: 1px solid rgba(255,255,255,0.1); padding: 24px 0; 
+}
+
+.memberships-faq-q {
+ font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 16px; color: #ffffff; margin-bottom: 8px; 
+}
+
+.memberships-faq-a {
+ font-family: 'DM Sans', sans-serif; font-size: 15px; color: rgba(255,255,255,0.7); line-height: 1.6; 
+}
+
+@media (max-width: 640px) { .memberships-card { padding: 24px; } }
+
+/* ═══════════════════════════════════════════════════════════════
+   CUSTOMER SERVICE PAGE
+═══════════════════════════════════════════════════════════════ */
+
+.cs-page-grid {
+ display: grid; grid-template-columns: repeat(2, 1fr); gap: 48px; 
+}
+
+.cs-subtitle {
+ font-family: 'DM Sans', sans-serif; font-size: 16px; color: #6F6F6F; text-align: center; margin-bottom: 48px; 
+}
+
+.cs-form-title {
+ font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 20px; color: #27252F; margin-bottom: 24px; 
+}
+
+.cs-form {
+ background-color: #ffffff; border-radius: 16px; padding: 32px; display: flex; flex-direction: column; gap: 20px; 
+}
+
+.cs-form-group label {
+ font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 14px; color: #27252F; margin-bottom: 8px; 
+}
+
+.cs-form-input, .cs-form-textarea, .cs-form-select {
+ font-family: 'DM Sans', sans-serif; font-size: 14px; padding: 12px 16px; border: 2px solid #E6E6E6; border-radius: 8px; color: #27252F; background-color: #F7F7F7; transition: border-color 0.2s; 
+}
+
+.cs-form-input:focus, .cs-form-textarea:focus, .cs-form-select:focus {
+ outline: none; border-color: #D6EB31; 
+}
+
+.cs-form-textarea {
+ resize: vertical; min-height: 120px; 
+}
+
+.cs-submit {
+ background-color: #D6EB31; color: #27252F; border: none; border-radius: 8px; padding: 12px 24px; font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 14px; cursor: pointer; transition: background-color 0.2s; 
+}
+
+.cs-submit:hover {
+ background-color: #c5d82c; 
+}
+
+.cs-info-card {
+ background-color: #ffffff; border-radius: 16px; padding: 32px; margin-bottom: 24px; 
+}
+
+.cs-info-card-title {
+ font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 18px; color: #27252F; margin-bottom: 20px; 
+}
+
+.cs-info-item {
+ display: flex; align-items: flex-start; gap: 12px; margin-bottom: 16px; 
+}
+
+.cs-info-icon {
+ color: #D6EB31; flex-shrink: 0; margin-top: 2px; 
+}
+
+.cs-info-text strong {
+ font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 14px; color: #27252F; display: block; margin-bottom: 4px; 
+}
+
+.cs-info-text span, .cs-info-text a {
+ font-family: 'DM Sans', sans-serif; font-size: 14px; color: #6F6F6F; 
+}
+
+.cs-info-text a:hover {
+ color: #D6EB31; 
+}
+
+.hours-table {
+ width: 100%; border-collapse: collapse; 
+}
+
+.hours-table td {
+ font-family: 'DM Sans', sans-serif; font-size: 14px; color: #6F6F6F; padding: 6px 0; 
+}
+
+.hours-table td:last-child {
+ text-align: right; font-weight: 600; color: #27252F; 
+}
+
+@media (max-width: 1023px) { .cs-page-grid { grid-template-columns: 1fr; } .cs-form-row { grid-template-columns: 1fr; } }
+
+/* ═══════════════════════════════════════════════════════════════
+   ACCOUNT PAGES (Auth + My Account)
+═══════════════════════════════════════════════════════════════ */
+
+.auth-remember {
+ display: flex; align-items: center; gap: 12px; cursor: pointer; user-select: none; 
+}
+
+.auth-checkbox {
+
+  width: 24px; height: 24px;
+  border-radius: 6px;
+  border: 2px solid #E6E6E6;
+  background-color: #F7F7F7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s;
+  cursor: pointer;
+
+}
+
+.auth-checkbox input[type=checkbox] {
+ display: none; 
+}
+
+.auth-checkbox input:checked + .auth-checkbox {
+ border-color: #D6EB31; background-color: #D6EB31; 
+}
+
+.auth-remember-text {
+ font-family: 'Poppins', sans-serif; font-size: 14px; color: #27252F; 
+}
+
+.auth-checkbox-label input {
+ display: none; 
+}
+
+.auth-checkbox-label input:checked ~ .auth-checkbox-custom {
+ border-color: #D6EB31; background-color: #D6EB31; 
+}
+
+.auth-error {
+ margin-bottom: 20px; border-radius: 10px; background-color: #FEF2F2; border: 1px solid #FECACA; padding: 12px 16px; font-family: 'DM Sans', sans-serif; font-size: 14px; color: #B91C1C; 
+}
+
+@media (max-width: 640px) {
+  .auth-card { padding: 32px 20px; }
+  .auth-title { font-size: clamp(1.5rem, 4vw, 2rem); }
+  .auth-form-row { grid-template-columns: 1fr; }
+}
+
+/* My Account Page */
+
+.account-page {
+ background-color: #F7F7F7; min-height: 100vh; padding: 32px 16px; 
+}
+
+.account-header {
+ text-align: center; margin-bottom: 48px; 
+}
+
+.account-title {
+ font-family: 'Poppins', sans-serif; font-weight: 700; font-size: clamp(2rem, 5vw, 3rem); color: #27252F; 
+}
+
+.account-content {
+ background-color: #ffffff; border-radius: 16px; padding: 32px; max-width: 900px; margin: 0 auto; 
+}
+
+.account-section {
+ margin-bottom: 40px; 
+}
+
+.account-section h2 {
+ font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 20px; color: #27252F; margin-bottom: 16px; border-bottom: 2px solid #E6E6E6; padding-bottom: 12px; 
+}
+
+.account-section p {
+ font-family: 'DM Sans', sans-serif; font-size: 14px; color: #6F6F6F; margin: 8px 0; 
+}
+
+.account-form {
+ display: flex; flex-direction: column; gap: 20px; 
+}
+
+.account-form-row {
+ display: grid; grid-template-columns: 1fr 1fr; gap: 16px; 
+}
+
+.account-form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.account-form-label {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    color: #27252F;
+    margin-bottom: 6px;
+}
+
+.account-form-input {
+    background-color: #F7F7F7;
+    border-radius: 10px;
+    padding: 0 16px;
+    height: 52px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: #27252F;
+    border: 2px solid transparent;
+    outline: none;
+    transition: border-color 0.2s;
+    background: #F7F7F7;
+}
+
+.account-form-input:focus {
+    border-color: #D6EB31;
+    background: #ffffff;
+}
+
+.account-form-input[readonly] {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.account-form-hint {
+ font-family: 'DM Sans', sans-serif; font-size: 12px; color: #A7A7A7; margin-top: 4px; 
+}
+
+.account-status-card {
+ display: flex; align-items: center; justify-content: space-between; background-color: #F7F7F7; border-radius: 12px; padding: 20px 24px; margin-bottom: 32px; gap: 16px; flex-wrap: wrap; 
+}
+
+.account-status-card--active {
+ background-color: rgba(214,235,49,0.1); border: 1px solid #D6EB31; 
+}
+
+.account-status-label {
+ font-family: 'DM Sans', sans-serif; font-size: 12px; color: #6F6F6F; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; 
+}
+
+.account-status-value {
+ font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 18px; color: #27252F; 
+}
+
+.account-danger-btn {
+ background-color: #FEF2F2; color: #B91C1C; border: none; border-radius: 8px; padding: 10px 20px; font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 14px; cursor: pointer; transition: background-color 0.2s; 
+}
+
+.account-danger-btn:hover {
+ background-color: #FECACA; 
+}
+
+.booking-item {
+ display: flex; justify-content: space-between; align-items: center; padding: 16px; border-radius: 12px; background-color: #F7F7F7; margin-bottom: 12px; gap: 16px; flex-wrap: wrap; 
+}
+
+.booking-item--cancelled {
+ opacity: 0.6; 
+}
+
+.booking-item--past {
+ opacity: 0.7; 
+}
+
+.booking-title {
+ font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 15px; color: #27252F; margin-bottom: 4px; 
+}
+
+.booking-meta {
+ font-family: 'DM Sans', sans-serif; font-size: 13px; color: #6F6F6F; 
+}
+
+.booking-badge {
+ padding: 4px 12px; border-radius: 20px; font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 12px; 
+}
+
+.booking-badge--success {
+ background-color: #ECFDF5; color: #065F46; 
+}
+
+.booking-badge--danger {
+ background-color: #FEE2E2; color: #B91C1C; 
+}
+
+.booking-badge--muted {
+ background-color: #F3F4F6; color: #6B7280; 
+}
+
+@media (max-width: 640px) { .account-content { padding: 20px 16px; } .account-form-row { grid-template-columns: 1fr; } }
+
+/* ═══════════════════════════════════════════════════════════════
+   ADMIN PAGE
+═══════════════════════════════════════════════════════════════ */
+
+.admin-panel {
+ background-color: #ffffff; border-radius: 16px; padding: 32px; margin-bottom: 32px; 
+}
+
+.admin-panel-title {
+ font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 20px; color: #27252F; margin-bottom: 24px; display: flex; align-items: center; gap: 12px; 
+}
+
+.admin-count {
+ background-color: #D6EB31; color: #27252F; border-radius: 20px; padding: 2px 10px; font-size: 14px; font-family: 'DM Sans', sans-serif; font-weight: 700; 
+}
+
+.admin-form {
+ display: flex; flex-direction: column; gap: 20px; 
+}
+
+.admin-form-row {
+ display: grid; grid-template-columns: 1fr 1fr; gap: 16px; 
+}
+
+.admin-form-group {
+ display: flex; flex-direction: column; 
+}
+
+.admin-form-label {
+ font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 14px; color: #27252F; margin-bottom: 8px; 
+}
+
+.admin-form-input, .admin-form-select {
+ background-color: #F7F7F7; border-radius: 10px; padding: 0 16px; height: 52px; font-family: 'DM Sans', sans-serif; font-size: 15px; color: #27252F; border: 2px solid transparent; outline: none; transition: border-color 0.2s; 
+}
+
+.admin-form-input:focus, .admin-form-select:focus {
+ border-color: #D6EB31; 
+}
+
+.admin-submit {
+ background-color: #D6EB31; color: #27252F; border: none; border-radius: 9999px; padding: 12px 32px; font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 15px; cursor: pointer; transition: background-color 0.2s; 
+}
+
+.admin-submit:hover {
+ background-color: #c5d82c; 
+}
+
+.admin-table-inactive td {
+ opacity: 0.5; 
+}
+
+.admin-table-title {
+ font-weight: 600; display: block; 
+}
+
+.admin-table-sub {
+ font-size: 12px; color: #6F6F6F; display: block; margin-top: 2px; 
+}
+
+.table-wrap {
+ overflow-x: auto; 
+}
+
+.admin-delete-btn {
+ background-color: #FEE2E2; color: #B91C1C; border: none; border-radius: 8px; padding: 6px 14px; font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 13px; cursor: pointer; transition: background-color 0.2s; 
+}
+
+.admin-delete-btn:hover {
+ background-color: #FECACA; 
+}
+
+.admin-empty {
+ text-align: center; padding: 48px 16px; font-family: 'DM Sans', sans-serif; font-size: 16px; color: #6F6F6F; 
+}
+
+/* Badge (shared) */
+
+.badge {
+ display: inline-block; padding: 4px 10px; border-radius: 20px; font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 12px; 
+}
+
+.badge-success {
+ background-color: #ECFDF5; color: #065F46; 
+}
+
+.badge-warning {
+ background-color: #FEF3C7; color: #92400E; 
+}
+
+.badge-danger {
+ background-color: #FEE2E2; color: #B91C1C; 
+}
+
+.badge-muted {
+ background-color: #F3F4F6; color: #6B7280; 
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ERROR 404 PAGE
+═══════════════════════════════════════════════════════════════ */
+
+.notfound-code {
+ font-family: 'Poppins', sans-serif; font-weight: 800; font-size: clamp(4rem, 15vw, 8rem); color: #D6EB31; line-height: 1; 
+}
+
+.notfound-subtitle {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    color: #6F6F6F;
+    margin-bottom: 32px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ALERT BANNERS
+═══════════════════════════════════════════════════════════════ */
+
+.alert--success {
+ background-color: #ECFDF5; color: #065F46; border: 1px solid #D1FAE5; 
+}
+
+.alert--error {
+ background-color: #FEF2F2; color: #B91C1C; border: 1px solid #FECACA; 
+}
+
+.alert__close {
+ margin-left: auto; background: none; border: none; cursor: pointer; font-size: 18px; color: inherit; padding: 0; line-height: 1; 
+}
+
+/* Validation summary */
+
+.validation-summary p {
+ font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 14px; color: #B91C1C; margin-bottom: 8px; 
+}
+
+.validation-summary ul {
+ list-style: disc; padding-left: 20px; 
+}
+
+.validation-summary li {
+ font-family: 'DM Sans', sans-serif; font-size: 14px; color: #B91C1C; 
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   NAVBAR — Training dropdown (Figma: lime bg, click-open)
+═══════════════════════════════════════════════════════════════ */
+
+/* ═══════════════════════════════════════════════════════════════
+   FOOTER — 2 column layout (Figma)
+═══════════════════════════════════════════════════════════════ */
+
+.footer-brand {
+ display: flex; align-items: center; gap: 0; 
+}
+
+@media (max-width: 767px) { .footer-columns { grid-template-columns: 1fr; } }
+
+/* ═══════════════════════════════════════════════════════════════
+   HOME — Section badges
+═══════════════════════════════════════════════════════════════ */
+
+.home-about-badge, .home-section-badge {
+
+  display: inline-flex; align-items: center; gap: 8px;
+  background-color: #27252F; color: #ffffff;
+  border-radius: 9999px; padding: 6px 14px;
+  font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 12px;
+  margin-bottom: 16px;
+
+}
+
+/* HOME About — images layout matching Figma */
+
+.home-about-image-wrapper {
+ border-radius: 16px; overflow: hidden; height: 200px; position: relative; 
+}
+
+.home-about-image-wrapper--tall {
+ height: 280px; margin-top: 40px; 
+}
+
+.home-about-image {
+ width: 100%; height: 100%; object-fit: cover; 
+}
+
+/* HOME Programs — header centered */
+
+.home-programs-cta {
+ text-align: center; font-family: 'DM Sans', sans-serif; font-size: 14px; color: #6F6F6F; margin-top: 20px; 
+}
+
+.home-programs-cta a {
+ color: #D6EB31; font-weight: 600; text-decoration: underline; 
+}
+
+/* HOME Partners — logos left, text right */
+
+/* HOME Products wrapper */
+
+.home-product-card-image {
+ object-fit: contain; padding: 16px; 
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MEMBERSHIPS — Figma layout
+═══════════════════════════════════════════════════════════════ */
+
+.memberships-card.highlighted .memberships-card-name,
+.memberships-card.highlighted .memberships-card-desc {
+ color: #ffffff; 
+}
+
+.memberships-card.highlighted .memberships-feature {
+ color: rgba(255,255,255,0.8); 
+}
+
+.memberships-card.highlighted .memberships-price-value {
+ color: #D6EB31; 
+}
+
+.memberships-card.highlighted .memberships-price-period,
+.memberships-card.highlighted .memberships-price-note {
+ color: rgba(255,255,255,0.6); 
+}
+
+.memberships-card.highlighted .memberships-trial-note {
+ color: rgba(255,255,255,0.5); 
+}
+
+.memberships-card-desc {
+ font-family: 'DM Sans', sans-serif; font-size: 13px; color: #6F6F6F; line-height: 1.5; margin: 0; 
+}
+
+/* CTA Card */
+
+.memberships-cta-sub {
+ font-family: 'DM Sans', sans-serif; font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.5; 
+}
+
+.memberships-cta-btn {
+
+  display: inline-flex; align-items: center; gap: 8px;
+  background: #D6EB31; color: #27252F;
+  border-radius: 9999px; padding: 10px 20px;
+  font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 13px;
+  text-decoration: none; width: fit-content;
+  transition: opacity 0.2s;
+
+}
+
+.memberships-cta-btn:hover {
+ opacity: 0.85; 
+}
+
+.memberships-cta-img {
+ margin-top: 8px; border-radius: 12px; overflow: hidden; 
+}
+
+.memberships-cta-img img {
+ width: 100%; height: 160px; object-fit: cover; object-position: top; 
+}
+
+/* Trust badges */
+
+/* FAQ section */
+
+.memberships-faq-img {
+ border-radius: 16px; overflow: hidden; 
+}
+
+.memberships-faq-img img {
+ width: 100%; height: 100%; object-fit: cover; max-height: 500px; 
+}
+
+.memberships-faq-heading {
+ font-family: 'Poppins', sans-serif; font-weight: 700; font-size: clamp(1.5rem,3vw,2rem); color: #27252F; margin-bottom: 24px; line-height: 1.2; 
+}
+
+/* FAQ accordion */
+
+.faq-list {
+ display: flex; flex-direction: column; 
+}
+
+.faq-q {
+
+  width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 16px 0; background: none; border: none; cursor: pointer;
+  font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 14px; color: #27252F;
+  text-align: left;
+
+}
+
+.faq-icon {
+ flex-shrink: 0; color: #D6EB31; 
+}
+
+.faq-icon--down {
+ color: #D6EB31; 
+}
+
+.faq-a {
+ padding: 0 0 16px; font-family: 'DM Sans', sans-serif; font-size: 14px; color: #6F6F6F; line-height: 1.7; 
+}
+
+.faq-list-inner {
+ list-style: disc; padding-left: 20px; margin-top: 8px; 
+}
+
+.faq-list-inner li {
+ font-family: 'DM Sans', sans-serif; font-size: 13px; color: #6F6F6F; margin-bottom: 4px; 
+}
+
+@media (max-width: 1023px) {
+  .memberships-cards-row { grid-template-columns: 1fr 1fr; }
+  .memberships-faq-section { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+  .memberships-cards-row { grid-template-columns: 1fr; }
+  .memberships-trust { flex-direction: column; gap: 16px; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CUSTOMER SERVICE — Figma layout
+═══════════════════════════════════════════════════════════════ */
+
+.cs-form-label {
+ font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 13px; color: #27252F; display: block; margin-bottom: 6px; 
+}
+
+@media (max-width: 767px) { .cs-contact-grid { grid-template-columns: 1fr; } }
+
+/* ═══════════════════════════════════════════════════════════════
+   MY ACCOUNT — Figma sidebar layout
+═══════════════════════════════════════════════════════════════ */
+
+.account-page-title {
+ font-family: 'Poppins', sans-serif; font-weight: 700; font-size: clamp(2rem,5vw,3rem); color: #27252F; text-align: center; margin-bottom: 40px; 
+}
+
+.account-avatar {
+ border-radius: 16px; overflow: hidden; 
+}
+
+.account-avatar img {
+ width: 100%; height: 260px; object-fit: cover; object-position: top; display: block; 
+}
+
+.account-menu {
+ background: #ffffff; border-radius: 16px; overflow: hidden; 
+}
+
+.account-menu-item:hover {
+ background: #F7F7F7; 
+}
+
+.account-menu-item--active {
+ color: #D6EB31; 
+}
+
+.account-menu-item--btn {
+
+  width: 100%; background: none; border: none; cursor: pointer;
+  font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 14px;
+  color: #27252F; text-align: left;
+
+}
+
+.account-menu-danger {
+ padding: 16px 20px; text-align: center; font-family: 'DM Sans', sans-serif; font-size: 12px; color: #A7A7A7; 
+}
+
+.account-remove-link {
+ background: none; border: none; cursor: pointer; color: #E50004; font-weight: 700; font-family: 'DM Sans', sans-serif; font-size: 13px; text-decoration: underline; 
+}
+
+/* Account form card */
+
+.account-form-grid {
+ display: grid; grid-template-columns: 1fr 1fr; gap: 20px; 
+}
+
+.account-form-group--full {
+ grid-column: 1 / -1; 
+}
+
+.account-save-row {
+ align-items: flex-end; justify-content: flex-end; flex-direction: row; 
+}
+
+.account-file-row {
+ display: flex; gap: 0; 
+}
+
+.account-file-row .account-form-input {
+ border-radius: 10px 0 0 10px; flex: 1; 
+}
+
+.account-browse-btn {
+
+  background: #27252F; color: #ffffff; border: none; padding: 0 20px;
+  border-radius: 0 10px 10px 0; font-family: 'DM Sans', sans-serif; font-size: 13px;
+  font-weight: 600; cursor: pointer;
+
+}
+
+/* Statistics */
+
+.account-stat-bar {
+ height: 6px; background: #E6E6E6; border-radius: 9999px; overflow: hidden; 
+}
+
+.account-stat-fill {
+ height: 100%; background: #D6EB31; border-radius: 9999px; 
+}
+
+@media (max-width: 1023px) { .account-layout { grid-template-columns: 1fr; } }
+
+@media (max-width: 640px) { .account-form-grid { grid-template-columns: 1fr; } }
+
+/* ═══════════════════════════════════════════════════════════════
+   404 PAGE — Figma style
+═══════════════════════════════════════════════════════════════ */
+
+.notfound-icon-wrap {
+ width: clamp(100px,20vw,180px); 
+}
+
+.notfound-svg {
+ width: 100%; height: auto; 
+}

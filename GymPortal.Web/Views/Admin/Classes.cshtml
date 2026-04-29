@@ -1,0 +1,161 @@
+﻿@model GymPortal.Web.ViewModels.AdminClassesViewModel
+@{
+    ViewData["Title"] = "Admin – Class Sessions";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div style="background-color:#F7F7F7;min-height:100vh;padding:32px 16px">
+    <div class="container">
+
+        <div style="margin-bottom:32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px">
+            <div>
+                <h1 style="font-family:'Poppins',sans-serif;font-weight:700;font-size:2rem;color:#27252F;margin-bottom:8px">Class Session Management</h1>
+                <p style="font-family:'DM Sans',sans-serif;font-size:15px;color:#6F6F6F">Create, review and remove class sessions.</p>
+            </div>
+            <a href="/Admin/Users" style="display:inline-flex;align-items:center;gap:8px;background:#D6EB31;color:#27252F;border-radius:50px;padding:0 20px;height:44px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:15px;text-decoration:none">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                    <circle cx="9" cy="7" r="4" />
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+                Manage Users
+            </a>
+        </div> 
+
+        <!-- Add Session -->
+        <div class="admin-panel">
+            <h2 class="admin-panel-title">Add New Session</h2>
+            @await Html.PartialAsync("_ValidationSummary")
+            <form method="post" asp-controller="Admin" asp-action="CreateClass" novalidate class="admin-form">
+                @Html.AntiForgeryToken()
+                <div class="admin-form-row">
+                    <div class="admin-form-group">
+                        <label asp-for="Form.TrainingProgramId" class="admin-form-label">Training Program</label>
+                        <select asp-for="Form.TrainingProgramId" asp-items="@(new SelectList(Model.Programs, "Id", "Title"))" class="admin-form-select" required>
+                            <option value="">— Select program —</option>
+                        </select>
+                        <span asp-validation-for="Form.TrainingProgramId" class="text-danger" style="font-size:12px;color:#B91C1C;margin-top:4px"></span>
+                    </div>
+                    <div class="admin-form-group">
+                        <label asp-for="Form.InstructorName" class="admin-form-label">Instructor</label>
+                        <input asp-for="Form.InstructorName" class="admin-form-input" placeholder="e.g. Marcus Webb" />
+                        <span asp-validation-for="Form.InstructorName" class="text-danger" style="font-size:12px;color:#B91C1C;margin-top:4px"></span>
+                    </div>
+                </div>
+                <div class="admin-form-row">
+                    <div class="admin-form-group">
+                        <label asp-for="Form.StartTime" class="admin-form-label">Start Time</label>
+                        <input asp-for="Form.StartTime" type="datetime-local" class="admin-form-input" />
+                        <span asp-validation-for="Form.StartTime" class="text-danger" style="font-size:12px;color:#B91C1C;margin-top:4px"></span>
+                    </div>
+                    <div class="admin-form-group">
+                        <label asp-for="Form.EndTime" class="admin-form-label">End Time</label>
+                        <input asp-for="Form.EndTime" type="datetime-local" class="admin-form-input" />
+                        <span asp-validation-for="Form.EndTime" class="text-danger" style="font-size:12px;color:#B91C1C;margin-top:4px"></span>
+                    </div>
+                </div>
+                <div class="admin-form-row">
+                    <div class="admin-form-group">
+                        <label asp-for="Form.Location" class="admin-form-label">Location</label>
+                        <input asp-for="Form.Location" class="admin-form-input" placeholder="e.g. Studio A" />
+                        <span asp-validation-for="Form.Location" class="text-danger" style="font-size:12px;color:#B91C1C;margin-top:4px"></span>
+                    </div>
+                    <div class="admin-form-group">
+                        <label asp-for="Form.MaxParticipants" class="admin-form-label">Max Participants</label>
+                        <input asp-for="Form.MaxParticipants" type="number" class="admin-form-input" min="1" max="200" />
+                        <span asp-validation-for="Form.MaxParticipants" class="text-danger" style="font-size:12px;color:#B91C1C;margin-top:4px"></span>
+                    </div>
+                </div>
+                <div>
+                    <button type="submit" class="admin-submit">Create Session</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Sessions Table -->
+        <div class="admin-panel">
+            <h2 class="admin-panel-title">
+                All Sessions
+                <span class="admin-count">@Model.Sessions?.Count</span>
+            </h2>
+
+            @if (Model.Sessions == null || !Model.Sessions.Any())
+            {
+                <p class="admin-empty">No sessions yet. Create one above.</p>
+            }
+            else
+            {
+                <div class="table-wrap">
+                    <table class="admin-table" aria-label="Class sessions">
+                        <thead>
+                            <tr>
+                                <th>Program</th>
+                                <th>Date &amp; Time</th>
+                                <th>Instructor</th>
+                                <th>Location</th>
+                                <th>Capacity</th>
+                                <th>Status</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var s in Model.Sessions)
+                            {
+                                Console.WriteLine($"{Model.Sessions}");
+                                var isPast = s.StartTime < DateTime.UtcNow;
+                                <tr class="@(!s.IsActive || isPast ? "admin-table-inactive" : "")">
+                                    <td>
+                                        <span class="admin-table-title">@s.ProgramTitle</span>
+                                        <span class="admin-table-sub">@s.Category · @s.DifficultyLevel</span>
+                                    </td>
+                                    <td>
+                                        <span>@s.StartTime.ToString("MMM d, yyyy")</span>
+                                        <span class="admin-table-sub">@s.StartTime.ToString("h:mm tt") – @s.EndTime.ToString("h:mm tt")</span>
+                                    </td>
+                                    <td>@s.InstructorName</td>
+                                    <td>@s.Location</td>
+                                    <td>
+                                        <span class="badge @(s.IsFull ? "badge-danger" : s.AvailableSpots <= 3 ? "badge-warning" : "badge-success")">
+                                            @(s.AvailableSpots) / @s.MaxParticipants
+                                        </span>
+                                    </td>
+                                    <td>
+                                        @if (!s.IsActive)
+                                        {
+                                            <span class="badge badge-muted">Inactive</span>
+                                        }
+                                        else if (isPast)
+                                        {
+                                            <span class="badge badge-muted">Past</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-success">Active</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (s.IsActive && !isPast)
+                                        {
+                                            <form method="post" asp-controller="Admin" asp-action="DeleteClass" asp-route-id="@s.Id"
+                                                  onsubmit="return confirm('Are you sure you want to remove this session?')">
+                                                @Html.AntiForgeryToken()
+                                                <button type="submit" class="admin-delete-btn">Remove</button>
+                                            </form>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+

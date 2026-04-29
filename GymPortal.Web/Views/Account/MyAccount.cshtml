@@ -1,0 +1,119 @@
+﻿@model GymPortal.Web.ViewModels.MyAccountViewModel
+@{
+    ViewData["Title"] = "My Account";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="account-page-new">
+    <!-- Figma: "My Account" Poppins 500 48px centered -->
+    <h1 class="account-page-heading">My Account</h1>
+
+    <div class="account-layout">
+        <!-- ═══ Sidebar ═══ -->
+        <aside class="account-sidebar">
+            <!-- Figma: trainer-1.jpg 404×440, border-radius 20px -->
+            <div class="account-avatar-card">
+                <img src="@(string.IsNullOrEmpty(Model.User?.ProfileImageUrl) ? "/images/trainer-profile.png" : Model.User.ProfileImageUrl)"
+                     alt="Profile photo" />
+            </div>
+
+            <!-- Figma: menu card — lime top bar, white body, border-radius 20px -->
+            <div class="account-menu-card">
+                <!-- Figma: color-bg #D6EB31 68px header -->
+                <div class="account-menu-header">
+                    <span class="account-menu-title">Menu Options</span>
+                </div>
+                <nav class="account-menu-list" aria-label="Account navigation">
+                    <a href="/Account/MyAccount" class="account-menu-item active" aria-current="page">
+                        <span class="account-menu-item-text">About Me</span>
+                        <svg class="account-menu-item-arrow" width="13" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6" /></svg>
+                    </a>
+                    <a href="/Account/MyMembership" class="account-menu-item">
+                        <span class="account-menu-item-text">My Membership</span>
+                        <svg class="account-menu-item-arrow" width="13" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6" /></svg>
+                    </a>
+                    <a href="/Account/MyBookings" class="account-menu-item">
+                        <span class="account-menu-item-text">My Bookings</span>
+                        <svg class="account-menu-item-arrow" width="13" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6" /></svg>
+                    </a>
+                    <form method="post" action="/Account/SignOut" style="display:contents">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="account-menu-item" style="border-bottom:1px solid #E6E6E6">
+                            <span class="account-menu-item-text">Sign Out</span>
+                            <svg class="account-menu-item-arrow" width="13" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6" /></svg>
+                        </button>
+                    </form>
+                </nav>
+                <!-- Figma: Remove Account — Poppins 10px note + 14px #E50004 link -->
+                <p class="account-menu-remove-note">If you like to cancel your account click below</p>
+                <form method="post" action="/Account/DeleteAccount" onsubmit="return confirm('Are you sure?')">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="account-menu-remove">Remove Account</button>
+                </form>
+            </div>
+        </aside>
+
+        <!-- ═══ Main content ═══ -->
+        <div>
+            <!-- Figma: profile-form 860×943, white, border-radius 20px -->
+            <div class="account-form-card">
+                <!-- Figma: "About Me" Poppins 500 56px -->
+                <h2 class="account-form-title">About Me</h2>
+                <hr class="account-form-divider" />
+
+                <form method="post" asp-action="MyAccount" asp-controller="Account"
+                      enctype="multipart/form-data" style="display:flex;flex-direction:column;gap:0">
+                    @Html.AntiForgeryToken()
+
+                    <!-- Figma: First Name -->
+                    <label class="auth-label" asp-for="FirstName">First Name</label>
+                    <input asp-for="FirstName" class="auth-input" type="text" autocomplete="given-name" placeholder="Enter First Name" />
+                    <span asp-validation-for="FirstName" class="text-danger" style="font-size:12px;color:#B91C1C;margin-top:4px"></span>
+
+                    <!-- Figma: Last Name -->
+                    <label class="auth-label" asp-for="LastName">Last Name</label>
+                    <input asp-for="LastName" class="auth-input" type="text" autocomplete="family-name" placeholder="Enter Last Name" />
+                    <span asp-validation-for="LastName" class="text-danger" style="font-size:12px;color:#B91C1C;margin-top:4px"></span>
+
+                    <!-- Figma: Email Address (readonly) -->
+                    <label class="auth-label">Email Address *</label>
+                    <input value="@Model.User?.Email" class="auth-input" type="email" readonly />
+
+                    <!-- Figma: Phone Number -->
+                    <label class="auth-label" asp-for="PhoneNumber">Phone Number</label>
+                    <input asp-for="PhoneNumber" class="auth-input" type="tel" autocomplete="tel" placeholder="Enter Phone Number" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger" style="font-size:12px;color:#B91C1C;margin-top:4px"></span>
+
+                    <!-- Figma: Date of Birth (if needed) -->
+                    @if (Model.DateOfBirth.HasValue)
+                    {
+                        <label class="auth-label" asp-for="DateOfBirth">Date of Birth</label>
+                        <input asp-for="DateOfBirth" class="auth-input" type="date" />
+                        <span asp-validation-for="DateOfBirth" class="text-danger" style="font-size:12px;color:#B91C1C;margin-top:4px"></span>
+                    }
+
+                    <hr class="account-form-divider" style="margin-top:24px" />
+
+                    <!-- Figma: Profile Image — input with Browse button -->
+                    <label class="auth-label">Profile Image</label>
+                    <div class="account-file-input-wrapper">
+                        <input type="file" name="ProfileImage" accept="image/*" class="auth-input" style="padding-top:16px;padding-bottom:16px;height:auto" />
+                    </div>
+
+                    <!-- Figma: Save btn 110×50 lime, right-aligned -->
+                    <div style="display:flex;justify-content:flex-end">
+                        <button type="submit" class="account-save-btn">
+                            Save
+                            <svg width="13" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6" /></svg>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
