@@ -76,8 +76,22 @@ namespace GymPortal.Web.Controllers
         // POST: /Admin/CreateClass
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateClass(ClassSessionDto model)
+        public async Task<IActionResult> CreateClass(AdminClassesViewModel viewModel)
         {
+            var model = viewModel.Form;   // get the actual DTO
+
+            // Manual validation (same as before)
+            if (model.TrainingProgramId <= 0)
+                ModelState.AddModelError("Form.TrainingProgramId", "Please select a training program.");
+            if (string.IsNullOrWhiteSpace(model.InstructorName))
+                ModelState.AddModelError("Form.InstructorName", "Instructor name is required.");
+            if (model.StartTime == DateTime.MinValue || model.EndTime == DateTime.MinValue)
+                ModelState.AddModelError("Form.StartTime", "Start time and end time are required.");
+            else if (model.StartTime >= model.EndTime)
+                ModelState.AddModelError("Form.EndTime", "End time must be after start time.");
+            if (model.MaxParticipants < 1)
+                ModelState.AddModelError("Form.MaxParticipants", "Max participants must be at least 1.");
+
             if (ModelState.IsValid)
             {
                 var result = await _adminService.CreateSessionAsync(model);
@@ -85,8 +99,15 @@ namespace GymPortal.Web.Controllers
                     TempData["Success"] = "Class session created.";
                 else
                     TempData["Error"] = result.Error;
+                return RedirectToAction(nameof(Classes));
             }
-            return RedirectToAction(nameof(Classes));
+
+            // Reload the view with existing data
+            var sessions = await _adminService.GetAllSessionsAsync();
+            var programs = await _adminService.GetAllProgramsAsync();
+            viewModel.Sessions = sessions.ToList();
+            viewModel.Programs = programs.ToList();
+            return View("Classes", viewModel);
         }
 
         // POST: /Admin/DeleteClass/{id}
